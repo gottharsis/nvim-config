@@ -45,49 +45,19 @@ local servers = {
     tsserver = {},
     gopls  = {},
     -- jedi_language_server = {},
-    -- jdtls = {
-    --     root_dir = function()
-    --         return vim.fn.getcwd()
-    --     end
-    -- },
+    jdtls = {
+        root_dir = function()
+            return vim.fn.getcwd()
+        end
+    },
+    clojure_lsp = {},
+
 }
 for server, config in pairs(servers) do
     config.on_attach = on_attach
     config.capabilities = capabilities
     lspconfig[server].setup(config)
 end
-
--- diagnosticls: for linters & formatters
--- local dlsconfig = require 'diagnosticls-configs'
-
--- dlsconfig.init {}
-
--- local eslint = require 'diagnosticls-configs.linters.eslint'
--- local prettier = require 'diagnosticls-configs.formatters.prettier'
--- local black = require 'diagnosticls-configs.formatters.black'
-
--- dlsconfig.setup {
---     ['javascript'] = {
---         linter = eslint,
---         formatter = prettier
---     },
---     ['javascriptreact'] = {
---         linter = eslint,
---         formatter = prettier
---     },
---     ['typescript'] = {
---         linter = eslint,
---         formatter = prettier
---     },
---     ['typescriptreact'] = {
---         linter = eslint,
---         formatter = prettier
---     },
---     ['python'] = {
---         formatter = black
---     }
--- }
-
 
 -- null-ls: for linters & formatters
 
@@ -99,6 +69,8 @@ local sources = {
         filetypes = { "python" },
         prefer_local = true
     }),
+
+    null_ls.builtins.diagnostics.clj_kondo,
 
     -- code actions (general)
     null_ls.builtins.code_actions.gitsigns,

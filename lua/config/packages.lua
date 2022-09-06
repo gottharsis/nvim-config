@@ -62,10 +62,14 @@ Plug 'folke/which-key.nvim'
 Plug 'mattn/emmet-vim'
 
 -- TeX
-Plug 'lervag/vimtex'
+Plug('lervag/vimtex', {['for']={'tex', 'latex'}})
 
 -- Pandoc Markdown
 Plug 'vim-pandoc/vim-pandoc-syntax'
+
+-- Clojure stuff
+Plug('Olical/conjure', { ['for'] = { 'clojure' }})
+Plug('gpanders/nvim-parinfer', { ['for']={ 'clojure' } })
 
 -- snippets
 Plug 'rafamadriz/friendly-snippets'
@@ -75,18 +79,18 @@ Plug 'rafamadriz/friendly-snippets'
 ------------------------
 -- colorschemes
 -- Plug 'projekt0n/github-nvim-theme'
-Plug 'Shatur/neovim-ayu'
+-- Plug 'Shatur/neovim-ayu'
 -- Plug('rose-pine/neovim', {['as'] = 'rose-pine'})
-Plug 'EdenEast/nightfox.nvim'
-Plug 'marko-cerovac/material.nvim'
+-- Plug 'EdenEast/nightfox.nvim'
+-- Plug 'marko-cerovac/material.nvim'
 Plug('catppuccin/nvim', {['as'] = 'catppuccin'})
 -- Plug 'shaunsingh/nord.nvim'
 -- Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
-Plug 'cpea2506/one_monokai.nvim'
-Plug 'tjdevries/colorbuddy.vim'
-Plug 'Th3Whit3Wolf/onebuddy'
+-- Plug 'cpea2506/one_monokai.nvim'
+-- Plug 'tjdevries/colorbuddy.vim'
+-- Plug 'Th3Whit3Wolf/onebuddy'
 
-Plug 'tanvirtin/monokai.nvim'
+-- Plug 'tanvirtin/monokai.nvim'
 
 -- Statusline and bufferline
 Plug 'hoob3rt/lualine.nvim'
@@ -119,8 +123,8 @@ Plug 'tpope/vim-sleuth'
 Plug 'junegunn/vim-easy-align'
 -- Easier motion
 -- Plug 'justinmk/vim-sneak'
--- Plug 'easymotion/vim-easymotion'
-Plug 'phaazon/hop.nvim'
+Plug 'easymotion/vim-easymotion'
+-- Plug 'phaazon/hop.nvim'
 -- Plug 'ggandor/lightspeed.nvim'
 
 -- indent lines
