@@ -77,6 +77,18 @@ npairs.add_rules {
     Rule('``', "''", { "tex", "latex" }),
 }
 
+
+npairs.add_rule(
+    Rule('\\begin%{.*%}', 'number', { 'tex', 'latex'})
+        :use_regex(true, '}')
+        :replace_endpair(function(opts) 
+        -- return vim.inspect(opts)
+        local _, _, capture = opts.prev_char:find('\\begin%{(.*)%}')
+        return '\\end{' .. capture .. ''
+    end)
+    :with_cr(cond.done())
+)
+
 -- spaces within braces
 npairs.add_rules {
   Rule(' ', ' ')
