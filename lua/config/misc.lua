@@ -14,24 +14,24 @@ vim.cmd 'nnoremap <C-n> :NvimTreeFindFileToggle<CR>'
 ------------------------------------
 -- Hop.nvim settings
 ------------------------------------
-local hop = require('hop')
-hop.setup()
+-- local hop = require('hop')
+-- hop.setup()
 
-local hopMappings = {
-    ['<Leader><Leader>'] = {
-        name = "Hop motions",
-        w = { "<cmd>HopWordMW<cr>", "Word" },
-        b = { "<cmd>HopWordMW<cr>", "Word" },
-        j = { "<cmd>HopLinestartMW<cr>", "Lines" },
-        k = { "<cmd>HopLinestartMW<cr>", "Lines" },
-        f = { "<cmd>HopChar1MW<cr>", "Single Character" },
-        F = { "<cmd>HopChar1MW<cr>", "Single Character" },
-    }
-}
+-- local hopMappings = {
+--     ['<Leader><Leader>'] = {
+--         name = "Hop motions",
+--         w = { "<cmd>HopWordMW<cr>", "Word" },
+--         b = { "<cmd>HopWordMW<cr>", "Word" },
+--         j = { "<cmd>HopLinestartMW<cr>", "Lines" },
+--         k = { "<cmd>HopLinestartMW<cr>", "Lines" },
+--         f = { "<cmd>HopChar1MW<cr>", "Single Character" },
+--         F = { "<cmd>HopChar1MW<cr>", "Single Character" },
+--     }
+-- }
 
-wk.register(hopMappings, { mode = "n" })
-wk.register(hopMappings, { mode = "v" })
-wk.register(hopMappings, { mode = "o" })
+-- wk.register(hopMappings, { mode = "n" })
+-- wk.register(hopMappings, { mode = "v" })
+-- wk.register(hopMappings, { mode = "o" })
 -- vim.cmd [[
 --     nnoremap <Leader><Leader>w :HopWord<cr>
 --     nnoremap <Leader><Leader>j :HopLinestart<cr>

@@ -5,7 +5,7 @@ local ts_conds = require('nvim-autopairs.ts-conds')
 
 local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 local cmp = require('cmp')
-cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
+-- cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 npairs.setup{}
 
 -- latex rules
@@ -52,26 +52,28 @@ end
 
 npairs.add_rule(Rule("$", "$", { "tex", "latex", "markdown.pandoc" }) 
     :with_pair(function(opts)
-        -- return ts_conds.is_not_ts_node({"inline_formula", "displayed_equation"})(opts)
-        return even_dollars_preceding(opts.text, opts.col - 1)         -- return not is_in_dollar(opts.text, opts.col - 1)
+        return even_dollars_preceding(opts.text, opts.col - 1) 
     end)
-    :with_pair(cond.not_before_text([[\]]))
     :with_move(function(opts) 
-        return opts.char == '$' and not even_dollars_preceding(opts.text, opts.col - 1)
+        return opts.char == '$' and not even_dollars_preceding(opts.text, opts.col - 1) and opts.prev_char ~= '\\'
         -- return opts.char == '$' and ts_conds.is_ts_node({"inline_formula"})(opts) 
     end)
     :use_undo(true)
+    :with_cr(cond.none())
 )
 
 npairs.add_rule(
-    Rule("$$", "$", { "tex", "latex", "markdown.pandoc" })
+    Rule("$$", "$$", { "tex", "latex", "markdown.pandoc" }):end_wise()
+
 )
 
 npairs.add_rules {
     Rule('\\left(', '\\right)', { "tex", "latex" }),
-    Rule('\\left[ ', '\\right]', { "tex", "latex" }),
+    Rule('\\left[', '\\right]', { "tex", "latex" }),
     Rule('\\left{', '\\right}', { "tex", "latex" }),
     Rule('\\{', '\\}', { "tex", "latex" }),
+    Rule('\\[', '\\]', { "tex", "latex" }),
+    Rule('\\(', '\\)', { "tex", "latex" }),
     Rule('``', "''", { "tex", "latex" }),
 }
 
@@ -105,5 +107,5 @@ npairs.add_rules {
 -- markdown.pandoc fix
 npairs.add_rules {
     Rule("```", "```", { 'markdown.pandoc' }),
-        Rule("```.*$", "```", { 'markdown.pandoc' })
+    Rule("```.*$", "```", { 'markdown.pandoc' }):use_regex(true)
 }

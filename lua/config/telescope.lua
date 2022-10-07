@@ -21,6 +21,7 @@ wk.register({
     ["<leader>b"] ={'<cmd>Telescope  buffers<cr>', 'Buffers'},
     ["<leader>s"] = { '<cmd>Telescope current_buffer_fuzzy_find<cr>', 'Find in current buffer' },
     ["<leader>k"] = { '<cmd>Telescope colorscheme<cr>', "Switch Color Scheme" },
+    ["<space><space>"] = { '<cmd>Telescope find_files<cr>', "Find Files" },
 })
 
 wk.register {

@@ -8,27 +8,33 @@ local wk = require('which-key')
 -- require('nightfox').load('nightfox')
 
 -- Material
-vim.g.material_style = 'oceanic'
-require('material').setup({
-    contrast = {
-        sidebars = true,
-    }
-})
-wk.register({
-    ['<leader>m'] = { "<cmd>lua require('material.functions').toggle_style()<cr>", "Change material theme" }
-})
+-- vim.g.material_style = 'oceanic'
+-- require('material').setup({
+--     contrast = {
+--         sidebars = true,
+--     }
+-- })
+-- wk.register({
+--     ['<leader>m'] = { "<cmd>lua require('material.functions').toggle_style()<cr>", "Change material theme" }
+-- })
 
 -- vim.cmd 'colorscheme material'
 
 -- vim.cmd [[ colorscheme one_monokai ]]
 
-vim.cmd [[ colorscheme monokai ]]
+-- vim.cmd [[ colorscheme monokai ]]
+
 -- catpuccin
 -- local catppuccin = require('catppuccin')
 
 -- catppuccin.setup()
 -- vim.cmd [[ colorscheme catppuccin ]]
 
+-- embark
+-- vim.cmd [[ colorscheme embark ]]
+
+-- horizon
+vim.cmd [[ colorscheme horizon ]]
 -- nord
 -- vim.cmd [[ colorscheme nord ]]
 

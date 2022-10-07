@@ -10,6 +10,7 @@ Plug 'voldikss/vim-floaterm'
 -- language server 
 Plug 'neovim/nvim-lspconfig' 
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'mfussenegger/nvim-jdtls'
 
 -- TreeSitter & related plugins
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})  -- We recommend updating the parsers on update 
@@ -24,6 +25,9 @@ Plug 'ThePrimeagen/refactoring.nvim'
 -- Snippets
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
+
+-- LSP loclist
+Plug 'folke/trouble.nvim'
 
 -- nvim-cmp: autocomplete
 Plug 'hrsh7th/cmp-nvim-lsp'
@@ -43,6 +47,7 @@ Plug('nvim-telescope/telescope-fzf-native.nvim', { ['do'] = 'make' })
 
 -- Git Integration
 Plug 'lewis6991/gitsigns.nvim'
+Plug 'TimUntersberger/neogit'
 -- Plug 'tpope/vim-fugitive'
 -- Plug 'kdheepak/lazygit.nvim'
 
@@ -68,8 +73,10 @@ Plug('lervag/vimtex', {['for']={'tex', 'latex'}})
 Plug 'vim-pandoc/vim-pandoc-syntax'
 
 -- Clojure stuff
-Plug('Olical/conjure', { ['for'] = { 'clojure' }})
-Plug('gpanders/nvim-parinfer', { ['for']={ 'clojure' } })
+Plug('Olical/conjure', { ['for'] = { 'clojure', 'edn' }})
+Plug('gpanders/nvim-parinfer', { ['for']={ 'clojure', 'edn'} })
+Plug('guns/vim-sexp', {['for']={'clojure', 'edn'}})
+Plug('tpope/vim-sexp-mappings-for-regular-people', {['for']={'clojure', 'edn'}})
 
 -- snippets
 Plug 'rafamadriz/friendly-snippets'
@@ -84,6 +91,8 @@ Plug 'rafamadriz/friendly-snippets'
 -- Plug 'EdenEast/nightfox.nvim'
 -- Plug 'marko-cerovac/material.nvim'
 Plug('catppuccin/nvim', {['as'] = 'catppuccin'})
+Plug('embark-theme/vim', { ['as'] = 'embark', ['branch'] = 'main' })
+Plug 'LunarVim/horizon.nvim'
 -- Plug 'shaunsingh/nord.nvim'
 -- Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 -- Plug 'cpea2506/one_monokai.nvim'

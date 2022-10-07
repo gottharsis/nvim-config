@@ -2,7 +2,6 @@ require('config/packages')
 vim.cmd [[ let g:python3_host_prog='/usr/bin/python' ]]
 
 
-
 ------------------
 -- Which Key setup
 ------------------
@@ -16,7 +15,7 @@ require('config/autocomplete')
 -------------------
 -- LSP
 -------------------
-require('config/lsp')
+require('config/lsp').setup()
 --------------------------------------
 -- Treesitter config
 --------------------------------------
@@ -48,3 +47,4 @@ require('config/floaterm')
 require('config/misc')
 
 
+vim.lsp.set_log_level("debug")
