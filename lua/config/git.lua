@@ -12,6 +12,7 @@ wk.register({
         g = {"<cmd>Neogit<cr>", "Neogit"},
         b = {"<cmd>Telescope git_branches<cr>", "Switch branch"},
         B = {"<cmd>Gitsigns toggle_current_line_blame<cr>", "Toggle Blame"},
-        r = {"<cmd>Gitsigns reset_hunk<cr>", "Reset hunk"}
+        r = {"<cmd>Gitsigns reset_hunk<cr>", "Reset hunk"},
+        d = {"<cmd>Gitsigns diffthis", "Open diff"}
     }
 })
