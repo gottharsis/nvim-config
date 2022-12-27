@@ -129,6 +129,8 @@ local function setup()
         lspconfig[server].setup(mk_config(config))
     end
 
+    require("fidget").setup{}
+
 end
 M.setup = setup
 

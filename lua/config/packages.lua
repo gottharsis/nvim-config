@@ -9,6 +9,8 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug('mfussenegger/nvim-jdtls', {['for'] = {'java'}})
 
+Plug 'j-hui/fidget.nvim'
+
 -- TreeSitter & related plugins
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})  -- We recommend updating the parsers on update 
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
