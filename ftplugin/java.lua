@@ -8,6 +8,8 @@ local home = os.getenv('HOME')
 local root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
 local workspace_dir =  "/home/ayush/.local/share/eclipse/" .. project_name
 
+local wk = require('which-key')
+
 local config = {
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
@@ -27,6 +29,9 @@ local config = {
     '--add-modules=ALL-SYSTEM',
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+
+    -- Lombok
+    '-javaagent:/home/ayush/misc/lombok.jar',
 
     -- 💀
     -- '-jar', '~/misc/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar',
@@ -96,3 +101,24 @@ config.init_options = {
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 require('jdtls').start_or_attach(config)
+
+wk.register({
+  ["cr"] = {
+    name = "jdt.ls Refactor",
+    v = { [[ <cmd>lua require('jdtls').extract_variable()<cr> ]], "Extract variable" },
+    c = { [[ <cmd>lua require('jdtls').extract_constant()<cr> ]], "Extract constant" },
+  }
+})
+
+
+
+wk.register({
+  ["cr"] = {
+    name = "jdt.ls Refactor",
+    v = { [[ <esc><cmd>lua require('jdtls').extract_variable(true)<cr> ]], "Extract variable" },
+    c = { [[ <esc><cmd>lua require('jdtls').extract_constant(true)<cr> ]], "Extract constant" },
+    m = { [[ <esc><cmd>lua require('jdtls').extract_method(true)<cr> ]], "Extract method" }
+  }
+}, {
+    mode = "v"
+  })

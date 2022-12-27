@@ -1,3 +1,4 @@
+local cmp = require'cmp'
 ---------------------
 -- Vimtex: better TeX
 ---------------------
@@ -18,7 +19,22 @@ vim.cmd [[
 -----------------------
 vim.cmd [[
     augroup pandoc_syntax
-        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc
+        au! BufNewFile,BufFilePre,BufRead *.md set filetype=markdown.pandoc setlocal spell
     augroup END
 ]]
+
+ cmp.setup.filetype('markdown.pandoc', {
+    sources = cmp.config.sources({
+        { name = 'omni' },
+        { name = 'cmp_dictionary' },
+    }, {
+      { name = 'buffer' },
+    })
+  })
+
+
+-----------------------
+-- LISP based languages
+-----------------------
+vim.g.sexp_enable_insert_mode_mappings = 0
 

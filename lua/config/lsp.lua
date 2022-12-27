@@ -44,6 +44,8 @@ local servers = {
     tsserver = {},
     gopls  = {},
     clojure_lsp = {},
+    clangd = {},
+    rust_analyzer = {},
 }
 
 

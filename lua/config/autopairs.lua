@@ -79,12 +79,17 @@ npairs.add_rules {
 
 
 npairs.add_rule(
-    Rule('\\begin{%a-}$', 'number', { 'tex', 'latex'})
+    Rule('\\begin{[^{}]-}$', 'number', { 'tex', 'latex'})
         :use_regex(true, '}')
         :replace_endpair(function(opts) 
         -- return vim.inspect(opts)
-            local _, _, capture = opts.prev_char:find('\\begin{(%a-)}')
-            return '\\end{' .. capture .. '}'
+            local pattern = '\\begin{([^{}]-)}'
+            -- local _, _, capture = opts.prev_char:find(pattern)
+            local last
+            for w in string.gmatch(opts.prev_char, pattern) do 
+                last = w
+            end
+            return '\\end{' .. last .. ''
         end)
         :with_cr(cond.done())
 )

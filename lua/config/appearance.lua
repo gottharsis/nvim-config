@@ -8,17 +8,17 @@ local wk = require('which-key')
 -- require('nightfox').load('nightfox')
 
 -- Material
--- vim.g.material_style = 'oceanic'
--- require('material').setup({
---     contrast = {
---         sidebars = true,
---     }
--- })
--- wk.register({
---     ['<leader>m'] = { "<cmd>lua require('material.functions').toggle_style()<cr>", "Change material theme" }
--- })
+vim.g.material_style = 'oceanic'
+require('material').setup({
+    contrast = {
+        sidebars = true,
+    }
+})
+wk.register({
+    ['<leader>m'] = { "<cmd>lua require('material.functions').toggle_style()<cr>", "Change material theme" }
+})
 
--- vim.cmd 'colorscheme material'
+vim.cmd 'colorscheme material'
 
 -- vim.cmd [[ colorscheme one_monokai ]]
 
@@ -34,7 +34,7 @@ local wk = require('which-key')
 -- vim.cmd [[ colorscheme embark ]]
 
 -- horizon
-vim.cmd [[ colorscheme horizon ]]
+-- vim.cmd [[ colorscheme horizon ]]
 -- nord
 -- vim.cmd [[ colorscheme nord ]]
 
