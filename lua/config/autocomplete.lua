@@ -4,8 +4,24 @@ local luasnip = require('luasnip')
 luasnip.config.set_config({
     history = false,
 })
--- require("luasnip/loaders/from_vscode").load({ include = { "javascript", "typescript", "typescriptreact" }})
 require("luasnip/loaders/from_vscode").lazy_load()
+
+
+-- Exit snippet when going back to insert mode
+function leave_snippet()
+    if
+        ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
+        and require('luasnip').session.current_nodes[vim.api.nvim_get_current_buf()]
+        and not require('luasnip').session.jump_active
+    then
+        require('luasnip').unlink_current()
+    end
+end
+
+-- stop snippets when you leave to normal mode
+vim.cmd [[
+    autocmd ModeChanged * lua leave_snippet()
+]]
 
 
 
@@ -22,12 +38,8 @@ end
 
 cmp.setup({
     snippet = {
-        -- REQUIRED - you must specify a snippet engine
         expand = function(args)
-            -- vim.fn[--vsnip#anonymous--](args.body) -- For `vsnip` users.
             require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-            -- vim.fn[--UltiSnips#Anon--](args.body) -- For `ultisnips` users.
-            -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
         end,
     },
     mapping = {
