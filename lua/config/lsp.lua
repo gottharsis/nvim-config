@@ -4,64 +4,63 @@ local configs = require'lspconfig/configs'
 local wk = require('which-key')
 local M = {}
 
--- wk.register({
---     ['gD'] = {'<cmd>lua vim.lsp.buf.declaration()<CR>', "Go to Declaration"},
---     ['gd'] = {'<cmd>lua vim.lsp.buf.definition()<CR>', "Go to definition"},
---     K = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'LSP Hover'},
-
---     ['gi']= { '<cmd>lua vim.lsp.buf.implementation()<CR>' , "Go to implementation"},
---     ['<C-k>']= { '<cmd>lua vim.lsp.buf.signature_help()<CR>' , "Method signature"},
---     ['<leader>wa']= { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>' , "Add workspace folder"},
---     ['<leader>wr']= { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>' , "Remove workspace folder"},
---     ['<leader>wl']= { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>' , "List workspace folders"},
---     ['<leader>D']= { '<cmd>lua vim.lsp.buf.type_definition()<CR>' , "Type Definition"},
---     ['<leader>rn']= { '<cmd>lua vim.lsp.buf.rename()<CR>' , "LSP Rename"},
---     ['gr']= { '<cmd>lua vim.lsp.buf.references()<CR>' , "Show References"},
---     ['<leader>ca']= { '<cmd>lua vim.lsp.buf.code_action()<CR>' , "Code action"},
---     -- ['<leader>ca']= { '<cmd>lua vim.lsp.buf.range_code_action()<CR>' , ""},
---     -- ['<leader>e']= { '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>' , "Line Diagnostics"},
---     -- ['[d']= { '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>' , "Previous Diagnostic"},
---     -- [']d']= { '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>' , "Next Diagnostic"},
---     ['<leader>q']= { '<cmd>lua vim.diagnostic.setloclist()<CR>' , "Set Diagnostic loclist"},
---     ['<leader>so']= { [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]] , "Document Symbols"},
---     [ '<leader>F' ]= { [[<cmd>lua vim.lsp.buf.formatting()<CR>]] , "LSP Format"},
--- }, 
---     {
---         mode = "n",
---         buffer = bufnr
---     })
 
 
-local on_attach = function(_, bufnr)
+-- format on save
+local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+
+
+local lsp_format = function(bufnr)
+    vim.lsp.buf.format({
+        filter = function(client) 
+            return client.name == "null-ls"
+        end,
+        bufnr = bufnr }) 
+end
+
+local on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     local opts = { noremap = true, silent = true }
 
-    wk.register({
-        ['gD'] = {'<cmd>lua vim.lsp.buf.declaration()<CR>', "Go to Declaration"},
-        ['gd'] = {'<cmd>lua vim.lsp.buf.definition()<CR>', "Go to definition"},
-        K = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'LSP Hover'},
+    wk.register(
+        {
+            ['gD'] = {'<cmd>lua vim.lsp.buf.declaration()<CR>', "Go to Declaration"},
+            ['gd'] = {'<cmd>lua vim.lsp.buf.definition()<CR>', "Go to definition"},
+            K = {'<cmd>lua vim.lsp.buf.hover()<cr>', 'LSP Hover'},
 
 
-        ['gi']= { '<cmd>lua vim.lsp.buf.implementation()<CR>' , "Go to implementation"},
-        ['<C-k>']= { '<cmd>lua vim.lsp.buf.signature_help()<CR>' , "Method signature"},
-        ['<leader>wa']= { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>' , "Add workspace folder"},
-        ['<leader>wr']= { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>' , "Remove workspace folder"},
-        ['<leader>wl']= { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>' , "List workspace folders"},
-        ['<leader>D']= { '<cmd>lua vim.lsp.buf.type_definition()<CR>' , "Type Definition"},
-        ['<leader>rn']= { '<cmd>lua vim.lsp.buf.rename()<CR>' , "LSP Rename"},
-        ['gr']= { '<cmd>lua vim.lsp.buf.references()<CR>' , "Show References"},
-        ['<leader>ca']= { '<cmd>lua vim.lsp.buf.code_action()<CR>' , "Code action"},
+            ['gi']= { '<cmd>lua vim.lsp.buf.implementation()<CR>' , "Go to implementation"},
+            ['<C-k>']= { '<cmd>lua vim.lsp.buf.signature_help()<CR>' , "Method signature"},
+            ['<leader>wa']= { '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>' , "Add workspace folder"},
+            ['<leader>wr']= { '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>' , "Remove workspace folder"},
+            ['<leader>wl']= { '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>' , "List workspace folders"},
+            ['<leader>D']= { '<cmd>lua vim.lsp.buf.type_definition()<CR>' , "Type Definition"},
+            ['<leader>rn']= { '<cmd>lua vim.lsp.buf.rename()<CR>' , "LSP Rename"},
+            ['gr']= { '<cmd>lua vim.lsp.buf.references()<CR>' , "Show References"},
+            ['<leader>ca']= { '<cmd>lua vim.lsp.buf.code_action()<CR>' , "Code action"},
 
 
-        ['<leader>q']= { '<cmd>lua vim.diagnostic.setloclist()<CR>' , "Set Diagnostic loclist"},
-        ['<leader>so']= { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>" , "Document Symbols"},
-        [ '<leader>F' ]= { "<cmd>lua vim.lsp.buf.formatting()<CR>" , "LSP Format"},
-    },
-    {
-        mode = "n",
-        buffer = bufnr
-    })
+            ['<leader>q']= { '<cmd>lua vim.diagnostic.setloclist()<CR>' , "Set Diagnostic loclist"},
+            ['<leader>so']= { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>" , "Document Symbols"},
+            [ '<leader>F' ]= { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>" , "LSP Format"},
+        },
+        {
+            mode = "n",
+            buffer = bufnr
+        }
+    )
+
+    if client.supports_method("textDocument/formatting") then
+        vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+        vim.api.nvim_create_autocmd("BufWritePre", {
+            group = augroup,
+            buffer = bufnr,
+            callback = function()
+                lsp_formatting(bufnr)
+            end,
+        })
+    end
 
 end
 M.on_attach = on_attach
@@ -106,7 +105,6 @@ local sources = {
     null_ls.builtins.code_actions.eslint,
     null_ls.builtins.formatting.prettierd
 }
-
 
 -- trouble.nvim setup
 local function setup()
