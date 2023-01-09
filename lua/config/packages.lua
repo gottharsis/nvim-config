@@ -134,5 +134,7 @@ Plug 'tpope/vim-abolish'
 
 -- jump pairs
 Plug 'tpope/vim-unimpaired'
+
+Plug 'junegunn/vim-easy-align'
 -- Replace with register
 vim.call('plug#end')
