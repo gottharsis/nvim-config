@@ -7,6 +7,7 @@ vim.call( 'plug#begin', vim.fn.stdpath('data') .. '/plugged')
 -- language server 
 Plug 'neovim/nvim-lspconfig' 
 Plug 'jose-elias-alvarez/null-ls.nvim'
+Plug 'ray-x/lsp_signature.nvim'
 Plug('mfussenegger/nvim-jdtls', {['for'] = {'java'}})
 
 Plug 'j-hui/fidget.nvim'
@@ -15,7 +16,7 @@ Plug 'j-hui/fidget.nvim'
 Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})  -- We recommend updating the parsers on update 
 Plug 'nvim-treesitter/nvim-treesitter-textobjects'
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug "SmiteshP/nvim-gps"
+Plug "SmiteshP/nvim-navic"
 Plug 'nvim-treesitter/playground'
 -- Plug 'windwp/nvim-ts-autotag'
 Plug 'p00f/nvim-ts-rainbow'
@@ -66,6 +67,7 @@ Plug('lervag/vimtex', {['for']={'tex', 'latex'}})
 
 -- Pandoc Markdown
 Plug('vim-pandoc/vim-pandoc-syntax', {['for'] = {'markdown', 'markdown.pandoc'}})
+Plug('dkarter/bullets.vim', {['for'] = {'markdown', 'markdown.pandoc', 'text', 'gitcommit'}})
 
 -- Clojure stuff
 Plug('Olical/conjure', { ['for'] = { 'clojure', 'edn' }})
@@ -88,18 +90,17 @@ Plug 'marko-cerovac/material.nvim'
 Plug('catppuccin/nvim', {['as'] = 'catppuccin'})
 Plug('embark-theme/vim', { ['as'] = 'embark', ['branch'] = 'main' })
 Plug 'LunarVim/horizon.nvim'
--- Plug 'shaunsingh/nord.nvim'
--- Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
+Plug 'sainnhe/sonokai'
 Plug 'cpea2506/one_monokai.nvim'
--- Plug 'tjdevries/colorbuddy.vim'
--- Plug 'Th3Whit3Wolf/onebuddy'
 
--- Plug 'tanvirtin/monokai.nvim'
 
 -- Statusline and bufferline
-Plug 'hoob3rt/lualine.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'hoob3rt/lualine.nvim'
 Plug 'akinsho/bufferline.nvim'
+
+-- code folding
+Plug 'anuvyklack/pretty-fold.nvim'
 
 --------------------------------------
 -- QOL Stuff
@@ -122,6 +123,8 @@ Plug 'tpope/vim-sleuth'
 
 -- Easier motion
 Plug 'easymotion/vim-easymotion'
+Plug 'ggandor/leap.nvim'
+Plug 'ggandor/leap-spooky.nvim'
 
 -- indent lines
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -132,8 +135,6 @@ Plug 'christoomey/vim-tmux-navigator'
 -- better substitution
 Plug 'tpope/vim-abolish'
 
--- jump pairs
-Plug 'tpope/vim-unimpaired'
 
 Plug 'junegunn/vim-easy-align'
 -- Replace with register

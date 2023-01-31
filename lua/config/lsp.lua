@@ -3,6 +3,7 @@ local lspconfig = require('lspconfig')
 local configs = require'lspconfig/configs'
 local wk = require('which-key')
 local M = {}
+local navic = require("nvim-navic")
 
 
 
@@ -10,7 +11,7 @@ local M = {}
 local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 
 
-local lsp_format = function(bufnr)
+local lsp_formatting = function(bufnr)
     vim.lsp.buf.format({
         filter = function(client) 
             return client.name == "null-ls"
@@ -42,8 +43,12 @@ local on_attach = function(client, bufnr)
 
 
             ['<leader>q']= { '<cmd>lua vim.diagnostic.setloclist()<CR>' , "Set Diagnostic loclist"},
-            ['<leader>so']= { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>" , "Document Symbols"},
-            [ '<leader>F' ]= { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>" , "LSP Format"},
+            ['<leader>s']= { "<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>" , "Document Symbols"},
+            ['<leader>S'] = { "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace Symbols" },
+            ['<leader>F']= { "<cmd>lua vim.lsp.buf.format({ async = true })<CR>" , "LSP Format"},
+
+            [']d'] = { "<cmd>lua vim.diagnostic.goto_next()<cr>", "Next Diagnostic" },
+            ['[d'] = { "<cmd>lua vim.diagnostic.goto_prev()<cr>", "Previous Diagnostic" },
         },
         {
             mode = "n",
@@ -61,6 +66,15 @@ local on_attach = function(client, bufnr)
             end,
         })
     end
+
+    navic.attach(client, bufnr)
+
+    require("lsp_signature").on_attach({
+      bind = true, -- This is mandatory, otherwise border config won't get registered.
+      handler_opts = {
+        border = "rounded"
+      }
+    }, bufnr)
 
 end
 M.on_attach = on_attach

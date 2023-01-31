@@ -36,6 +36,10 @@ local has_words_before = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+-- add parenthesis when completing method name
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
+
 cmp.setup({
     snippet = {
         expand = function(args)
@@ -70,6 +74,8 @@ cmp.setup({
                 fallback()
             end
         end, { "i", "s" }),
+
+        ["<CR>"] = cmp.mapping.confirm()
     },
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },

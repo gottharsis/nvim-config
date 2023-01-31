@@ -2,7 +2,7 @@
 local wk = require('which-key')
 require'nvim-treesitter.configs'.setup {
     ensure_installed = 'all', -- one of --all--, --maintained-- (parsers with maintainers), or a list of languages
-    ignore_install = { 'javascript' }, -- List of parsers to ignore installing
+    -- ignore_install = { 'javascript' }, -- List of parsers to ignore installing
     highlight = {
         enable = true,              -- false will disable the whole extension
         disable = { 'c', 'rust' },  -- list of language that will be disabled
@@ -21,9 +21,9 @@ require'nvim-treesitter.configs'.setup {
         enable = true,
         keymaps = {
             init_selection = '<cr>',
-            node_incremental = '<tab>',
-            scope_incremental = '<tab>',
-            node_decremental = '<s-tab>',
+            node_incremental = '<cr>',
+            scope_incremental = '<cr>',
+            node_decremental = '<s-cr>',
         },
     },
     indent = {
@@ -62,19 +62,13 @@ require'nvim-treesitter.configs'.setup {
             set_jumps = true, -- whether to set jumps in the jumplist
             goto_next_start = {
                 [']m'] = '@function.outer',
-                [']]'] = '@class.outer',
-            },
-            goto_next_end = {
-                [']M'] = '@function.outer',
-                [']['] = '@class.outer',
+                [']c'] = '@class.outer',
+                [']a'] = '@parameter.inner',
             },
             goto_previous_start = {
                 ['[m'] = '@function.outer',
-                ['[['] = '@class.outer',
-            },
-            goto_previous_end = {
-                ['[M'] = '@function.outer',
-                ['[]'] = '@class.outer',
+                ['[c'] = '@class.outer',
+                ['[a'] = '@parameter.inner',
             },
         },
         lsp_interop = {
