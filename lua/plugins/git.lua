@@ -11,7 +11,7 @@ return {
         }, 
         config = true,
         opts = {
-            sign_priority = 8
+            sign_priority = 3
         }
     },
     {

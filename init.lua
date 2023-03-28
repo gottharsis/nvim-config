@@ -14,18 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-local function lspSymbol(name, icon)
-  vim.fn.sign_define(
-    'DiagnosticSign' .. name,
-    { text = icon, numhl = 'DiagnosticDefault' .. name }
-  )
-end
-lspSymbol('Error', '')
-lspSymbol('Information', '')
-lspSymbol('Hint', '')
-lspSymbol('Info', '')
-lspSymbol('Warning', '')
-
+require("diagnostics")
 -- vim.g.wordmotion_prefix = "\\"
 
 require("lazy").setup("plugins")
@@ -34,7 +23,7 @@ require("lazy").setup("plugins")
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.o.signcolumn = "yes"
+vim.o.signcolumn = "auto:1-2"
 vim.o.number = true
 vim.o.relativenumber = true
 
