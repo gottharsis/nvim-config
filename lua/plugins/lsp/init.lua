@@ -1,29 +1,20 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        dependencies = {  "cmp-nvim-lsp", "ray-x/lsp_signature.nvim", "nvim-telescope/telescope.nvim", "folke/trouble.nvim", "ray-x/lsp_signature.nvim" },
-        config = function() 
+        dependencies = { "cmp-nvim-lsp", "ray-x/lsp_signature.nvim", "nvim-telescope/telescope.nvim",
+            "folke/trouble.nvim", "ray-x/lsp_signature.nvim" },
+        config = function()
             local on_attach = require("plugins/lsp/on_attach").on_attach
             local servers = require("plugins/lsp/servers")
             local lspconfig = require("lspconfig")
 
 
-            local mk_config = function(config) 
+            for server, config in pairs(servers) do
                 local capabilities = require('cmp_nvim_lsp').default_capabilities()
-                -- add folding to LSP for nvim-ufo
-
-                capabilities.textDocument.foldingRange = {
-                    dynamicRegistration = false,
-                    lineFoldingOnly = true
-                }
                 config.on_attach = on_attach
                 config.capabilities = capabilities
-                return config
-            end
 
-
-            for server, config in pairs(servers) do
-                lspconfig[server].setup(mk_config(config))
+                lspconfig[server].setup(config)
             end
 
 
@@ -46,12 +37,11 @@ return {
                 float = { border = _border }
             })
         end,
-
     },
     {
         "j-hui/fidget.nvim",
         config = function()
-            require("fidget").setup{}
+            require("fidget").setup {}
         end
     },
     {
@@ -66,8 +56,8 @@ return {
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
-        dependencies = {"nvim-lua/plenary.nvim"},
-        config = function ()
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
             local null_ls = require("null-ls")
 
             null_ls.setup({
@@ -80,8 +70,8 @@ return {
         end
     },
     {
-        "ray-x/lsp_signature.nvim", 
-        config = function() 
+        "ray-x/lsp_signature.nvim",
+        config = function()
             require("lsp_signature").setup({
                 bind = true, -- This is mandatory, otherwise border config won't get registered.
                 handler_opts = {
