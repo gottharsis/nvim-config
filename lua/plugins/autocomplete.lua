@@ -4,7 +4,7 @@ return {
         dependencies = {
             { "rafamadriz/friendly-snippets" }
         },
-        config = function ()
+        config = function()
             local luasnip = require('luasnip')
 
             luasnip.config.set_config({
@@ -26,8 +26,6 @@ return {
 
             -- stop snippets when you leave to normal mode
             vim.cmd [[ autocmd ModeChanged * lua leave_snippet() ]]
-
-
         end
     },
     {
@@ -42,10 +40,11 @@ return {
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-omni",
             "windwp/nvim-autopairs",
+            "zbirenbaum/copilot-cmp",
 
         },
         config = function()
-            local cmp = require'cmp'
+            local cmp = require 'cmp'
             local lspkind = require('lspkind')
             local luasnip = require("luasnip")
 
@@ -54,12 +53,12 @@ return {
 
 
             local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-            local cmp = require('cmp')
 
             local has_words_before = function()
                 unpack = unpack or table.unpack
                 local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+                return col ~= 0 and
+                    vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
             end
 
             cmp.setup({
@@ -77,18 +76,18 @@ return {
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             local entry = cmp.get_selected_entry()
-                            if not entry then 
+                            if not entry then
                                 -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                                if luasnip.expand_or_locally_jumpable() then 
+                                if luasnip.expand_or_locally_jumpable() then
                                     luasnip.expand_or_jump()
-                                else 
+                                else
                                     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
                                 end
-                            else 
-                                cmp.confirm()
+                            else
+                                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace })
                             end
 
-                            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable() 
+                            -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
                             -- they way you will only jump inside the snippet region
                         elseif luasnip.expand_or_locally_jumpable() then
                             luasnip.expand_or_jump()
@@ -99,11 +98,11 @@ return {
                         end
                     end, { "i", "s" }),
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then 
+                        if cmp.visible() then
                             cmp.select_prev_item()
                         elseif luasnip.jumpable(-1) then
                             luasnip.jump(-1)
-                        else 
+                        else
                             fallback()
                         end
                     end),
@@ -113,23 +112,45 @@ return {
                         else
                             fallback()
                         end
-                        
                     end)
-
                 }),
-
                 sources = cmp.config.sources({
+                    { name = 'copilot' },
                     { name = 'nvim_lsp' },
                     { name = 'treesitter' },
                     { name = 'luasnip' }, -- For luasnip users.
                     { name = 'omni' },
                     { name = 'path' },
                 }, {
-                        { name = 'buffer' },
-                    }),
+                    { name = 'buffer' },
+                }),
                 formatting = {
-                    format = lspkind.cmp_format({with_text = false, maxwidth = 50})
-                }
+                    format = lspkind.cmp_format({
+                        mode = "symbol",
+                        maxwidth = 50,
+                        symbol_map = {
+                            Copilot = "",
+                        }
+                    })
+                },
+                sorting = {
+                    priority_weight = 2,
+                    comparators = {
+                        require("copilot_cmp.comparators").prioritize,
+
+                        -- Below is the default comparitor list and order for nvim-cmp
+                        cmp.config.compare.offset,
+                        -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
+                        cmp.config.compare.exact,
+                        cmp.config.compare.score,
+                        cmp.config.compare.recently_used,
+                        cmp.config.compare.locality,
+                        cmp.config.compare.kind,
+                        cmp.config.compare.sort_text,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
+                    },
+                },
             })
 
             -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -144,7 +165,7 @@ return {
                 sources = cmp.config.sources(
                     {
                         { name = 'path' }
-                    }, 
+                    },
                     {
                         { name = 'cmdline' }
                     })
@@ -155,9 +176,6 @@ return {
                 'confirm_done',
                 cmp_autopairs.on_confirm_done()
             )
-
         end
     }
 }
-
-
