@@ -7,38 +7,36 @@ local keymaps = require("plugins/lsp/keymaps")
 -- local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 -- local lsp_formatting = function(bufnr)
 --     vim.lsp.buf.format({
---         filter = function(client) 
+--         filter = function(client)
 --             return client.name == "null-ls"
 --         end,
---         bufnr = bufnr }) 
+--         bufnr = bufnr })
 -- end
 
 
-M.format_on_save = function(client, bufnr) 
+local formatting_augroup = vim.api.nvim_create_augroup("FormatOnSave", {})
+M.format_on_save = function(client, bufnr)
     local no_format = { "tsserver" }
 
-    if client.supports_method("textDocument/formatting") then
+    if client.supports_method("textDocument/formatting") and not vim.tbl_contains(no_format, client.name) then
         print("Client " .. client.name .. " supports formatting")
-        vim.api.nvim_clear_autocmds({ group = formatting_augroup, buffer = bufnr })
+        vim.api.nvim_clear_autocmds({ buffer = bufnr, group = formatting_augroup })
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = formatting_augroup,
             buffer = bufnr,
+            desc = "Format on Save",
             callback = function()
-                vim.lsp.buf.format({
-                    filter = function(client) 
-                        if vim.tbl_contains(no_format, client.name) then 
-                            return false
-                        end
-                        return true
-                    end
-                })
+                print("Formatting with " .. client.name)
+                vim.lsp.buf.format({ bufnr = bufnr })
             end,
         })
+
+        vim.api.nvim_buf_create_user_command(bufnr, "Format", function() vim.lsp.buf.format({ bufnr = bufnr }) end, {})
     end
 end
 
 
-M.on_attach = function(client, bufnr) 
+M.on_attach = function(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     keymaps.set_keymaps(client, bufnr)

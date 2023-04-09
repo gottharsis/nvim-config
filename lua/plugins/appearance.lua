@@ -1,15 +1,15 @@
 return {
     {
         "anuvyklack/pretty-fold.nvim",
-        config = function() 
-
+        enabled = false,
+        config = function()
             require('pretty-fold').setup {
                 sections = {
                     left = {
                         'content',
                     },
                     right = {
-                        ' ', 'number_of_folded_lines',  
+                        ' ', 'number_of_folded_lines',
                         function(config) return config.fill_char:rep(3) end
                     }
                 },
@@ -37,7 +37,7 @@ return {
                 add_close_pattern = true, -- true, 'last_line' or false
 
                 matchup_patterns = {
-                    {  '{', '}' },
+                    { '{',  '}' },
                     { '%(', ')' }, -- % to escape lua pattern char
                     { '%[', ']' }, -- % to escape lua pattern char
                 },
@@ -47,14 +47,12 @@ return {
         end,
     },
     {
-        "lukas-reineke/indent-blankline.nvim", 
+        "lukas-reineke/indent-blankline.nvim",
         config = function()
-
             require("indent_blankline").setup {
                 show_current_context = true,
                 show_current_context_start = true,
             }
         end
-
-    }
+    },
 }
