@@ -114,15 +114,19 @@ return {
                         end
                     end)
                 }),
-                sources = cmp.config.sources({
-                    { name = 'nvim_lsp' },
-                    { name = 'treesitter' },
-                    { name = 'luasnip' }, -- For luasnip users.
-                    { name = 'omni' },
-                    { name = 'path' },
-                }, {
-                    { name = 'buffer' },
-                }),
+                sources = cmp.config.sources(
+                    {
+                        { name = 'nvim_lsp' },
+                        { name = 'luasnip' }, -- For luasnip users.
+                        { name = 'path' },
+                    }, {
+
+                        { name = 'omni' },
+                        { name = 'treesitter' },
+                    },
+                    {
+                        { name = 'buffer' },
+                    }),
                 formatting = {
                     format = lspkind.cmp_format({
                         mode = "symbol",
