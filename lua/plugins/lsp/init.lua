@@ -11,6 +11,7 @@ return {
 
             for server, config in pairs(servers) do
                 local capabilities = require('cmp_nvim_lsp').default_capabilities()
+                capabilities.offsetEncoding = { 'utf-8' }
                 config.on_attach = on_attach
                 config.capabilities = capabilities
 

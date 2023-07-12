@@ -15,7 +15,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require("diagnostics")
--- vim.g.wordmotion_prefix = "\\"
 
 require("lazy").setup("plugins")
 
@@ -68,3 +67,5 @@ set relativenumber
 imap jk <esc>
 set splitright splitbelow
 ]]
+
+require('colorbuddy').colorscheme('snazzybuddy')

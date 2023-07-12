@@ -46,8 +46,22 @@ return {
         "akinsho/bufferline.nvim",
         lazy = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
-        config = function()
-            require("bufferline").setup {}
-        end,
+        opts = {
+            options = {
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        text = "File Explorer",
+                        highlight = "Directory",
+                        separator = true -- use a "true" to enable the default, or set your own character
+                    }
+                },
+                -- separator_style = "thick",
+                themable = true,
+                always_show_bufferline = true,
+            },
+        },
+        config = true,
     },
+
 }

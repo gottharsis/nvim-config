@@ -14,7 +14,7 @@ return {
 
 
             -- -- Exit snippet when going back to insert mode
-            function leave_snippet()
+            function LeaveSnippet()
                 if
                     ((vim.v.event.old_mode == 's' and vim.v.event.new_mode == 'n') or vim.v.event.old_mode == 'i')
                     and require('luasnip').session.current_nodes[vim.api.nvim_get_current_buf()]
@@ -25,7 +25,7 @@ return {
             end
 
             -- stop snippets when you leave to normal mode
-            vim.cmd [[ autocmd ModeChanged * lua leave_snippet() ]]
+            vim.cmd [[ autocmd ModeChanged * lua LeaveSnippet() ]]
         end
     },
     {
@@ -72,7 +72,7 @@ return {
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({ select = false }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             local entry = cmp.get_selected_entry()
@@ -115,7 +115,6 @@ return {
                     end)
                 }),
                 sources = cmp.config.sources({
-                    { name = 'copilot' },
                     { name = 'nvim_lsp' },
                     { name = 'treesitter' },
                     { name = 'luasnip' }, -- For luasnip users.
@@ -132,24 +131,6 @@ return {
                             Copilot = "",
                         }
                     })
-                },
-                sorting = {
-                    priority_weight = 2,
-                    comparators = {
-                        require("copilot_cmp.comparators").prioritize,
-
-                        -- Below is the default comparitor list and order for nvim-cmp
-                        cmp.config.compare.offset,
-                        -- cmp.config.compare.scopes, --this is commented in nvim-cmp too
-                        cmp.config.compare.exact,
-                        cmp.config.compare.score,
-                        cmp.config.compare.recently_used,
-                        cmp.config.compare.locality,
-                        cmp.config.compare.kind,
-                        cmp.config.compare.sort_text,
-                        cmp.config.compare.length,
-                        cmp.config.compare.order,
-                    },
                 },
             })
 

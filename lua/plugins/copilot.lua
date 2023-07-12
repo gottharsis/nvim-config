@@ -8,13 +8,15 @@ return {
                 suggestion = { enabled = false },
                 panel = { enabled = false },
             }
-        end
+        end,
+        enabled = false,
     },
     {
         "zbirenbaum/copilot-cmp",
         dependencies = { "zbirenbaum/copilot.lua" },
         config = function()
             require("copilot_cmp").setup()
-        end
+        end,
+        enabled = false,
     }
 }
