@@ -51,7 +51,6 @@ filetype plugin indent on
 set nocompatible
 set showmatch
 set ignorecase
-set mouse=v
 set hlsearch
 set tabstop=4
 set softtabstop=4
@@ -68,4 +67,5 @@ imap jk <esc>
 set splitright splitbelow
 ]]
 
-require('colorbuddy').colorscheme('snazzybuddy')
+-- require('colorbuddy').colorscheme('snazzybuddy')
+vim.cmd [[ colorscheme ayu-mirage ]]

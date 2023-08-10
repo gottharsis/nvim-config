@@ -2,18 +2,11 @@ return {
     {
         -- current theme
         "projekt0n/github-nvim-theme",
-        tag = "v0.0.7",
         lazy = true,
     },
     {
         "Shatur/neovim-ayu",
         lazy = true,
-        -- lazy = false,
-        -- priority = 1000,
-        -- config = function()
-        --     vim.cmd [[ colorscheme ayu-mirage ]]
-        -- end
-
     },
     {
         "LunarVim/horizon.nvim",
@@ -58,11 +51,16 @@ return {
             Group.new("BufferLineFill", colors.bg_dark, colors.bg_dark)
             -- Group.new("BufferLineSeparator", colors.white, colors.bg_dark)
             -- Group.new("BufferLineSeparatorSelected", colors.bg, colors.bg_dark)
+
+            -- Support for rainbow delimiters
+            Group.new("RainbowDelimiterRed", colors.red)
+            Group.new("RainbowDelimiterBlue", colors.blue)
+            Group.new("RainbowDelimiterCyan", colors.cyan)
+            Group.new("RainbowDelimiterGreen", colors.green)
+            Group.new("RainbowDelimiterOrange", colors.orange)
+            Group.new("RainbowDelimiterYellow", colors.yellow)
+            Group.new("RainbowDelimiterViolet", colors.purple)
         end
-    },
-    {
-        "nyxkrage/henna.nvim",
-        dependencies = { "tjdevries/colorbuddy.nvim" },
     },
     {
         "rebelot/kanagawa.nvim",
@@ -79,5 +77,9 @@ return {
             }
         },
         config = true
-    }
+    },
+    {
+        "folke/tokyonight.nvim",
+        lazy = true,
+    },
 }

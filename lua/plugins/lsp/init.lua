@@ -41,6 +41,8 @@ return {
     },
     {
         "j-hui/fidget.nvim",
+        tag = "legacy",
+        event = "LspAttach",
         config = function()
             require("fidget").setup {}
         end
@@ -53,7 +55,11 @@ return {
             position = 'left',
             lsp_blacklist = { "null-ls" },
         },
-        cmd = { "SymbolsOutline" }
+        cmd = { "SymbolsOutline" },
+        keys = {
+            { "<leader>o", ":SymbolsOutline<cr>", desc = "Toggle Symbols Outline" },
+        },
+
     },
     {
         "jose-elias-alvarez/null-ls.nvim",
@@ -65,6 +71,7 @@ return {
                 sources = {
                     null_ls.builtins.formatting.prettierd,
                     null_ls.builtins.formatting.black,
+                    null_ls.builtins.formatting.ocamlformat,
                 },
                 on_attach = require("plugins/lsp/on_attach").format_on_save
             })
@@ -80,5 +87,6 @@ return {
                 },
             })
         end
-    }
+    },
+    { "folke/neodev.nvim", opts = {} },
 }

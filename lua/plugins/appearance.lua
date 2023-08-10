@@ -49,10 +49,47 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         config = function()
+            vim.g.indent_blankline_filetype_exclude = {
+                "lspinfo",
+                "packer",
+                "checkhealth",
+                "help",
+                "man",
+                "",
+                -- "ocaml",
+                "clojure"
+            }
             require("indent_blankline").setup {
                 show_current_context = true,
                 show_current_context_start = true,
             }
         end
     },
+    {
+        "hiphish/rainbow-delimiters.nvim",
+        enabled = false,
+        config = function()
+            local rainbow_delimiters = require 'rainbow-delimiters'
+
+            vim.g.rainbow_delimiters = {
+                strategy = {
+                    [''] = rainbow_delimiters.strategy['global'],
+                    vim = rainbow_delimiters.strategy['local'],
+                },
+                query = {
+                    [''] = 'rainbow-delimiters',
+                    lua = 'rainbow-blocks',
+                },
+                highlight = {
+                    'RainbowDelimiterRed',
+                    'RainbowDelimiterYellow',
+                    'RainbowDelimiterBlue',
+                    'RainbowDelimiterOrange',
+                    'RainbowDelimiterGreen',
+                    'RainbowDelimiterViolet',
+                    'RainbowDelimiterCyan',
+                },
+            }
+        end
+    }
 }

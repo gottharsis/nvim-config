@@ -1,7 +1,7 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
-        lazy = false,
+
         dependencies = { "nvim-tree/nvim-web-devicons" },
         config = function()
             -- local current_signature = function()
@@ -9,6 +9,14 @@ return {
             --     local sig = require("lsp_signature").status_line(80)
             --     return sig.label .. "🐼" .. sig.hint
             -- end
+            local multicursor_mode = function()
+                local vm_infos = vim.fn.VMInfos()
+                if vim.tbl_isempty(vm_infos) then return "" end
+
+                local pattern_str = ""
+                if not vim.tbl_isempty(vm_infos.patterns) then pattern_str = " " .. vim.inspect(vm_infos.patterns) end
+                return "MC: " .. vm_infos.status .. " " .. vm_infos.ratio .. pattern_str
+            end
 
 
             require("lualine").setup {
@@ -21,10 +29,11 @@ return {
                     always_divide_middle = true,
                 },
                 sections = {
-                    lualine_a = { "mode" },
+                    lualine_a = { "mode", },
                     lualine_b = { "branch" },
-                    -- lualine_c = { current_signature },
-                    lualine_c = {},
+                    lualine_c = {
+                        -- { multicursor_mode }
+                    },
                     lualine_x = { { "diagnostics", sources = { "nvim_lsp" } }, },
                     lualine_y = { "filename", "filetype" },
                     lualine_z = { "location" }
@@ -60,6 +69,9 @@ return {
                 themable = true,
                 always_show_bufferline = true,
             },
+        },
+        keys = {
+            { ",D", "<cmd>BufferLineCloseOthers<cr>", desc = "Close all other buffers" }
         },
         config = true,
     },
