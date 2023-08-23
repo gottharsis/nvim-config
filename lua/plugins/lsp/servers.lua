@@ -7,7 +7,8 @@ local servers = {
   -- ccls = {},
   rust_analyzer = {},
   emmet_ls      = {
-    filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+    autostart = false,
+    filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'xsd' },
     init_options = {
       html = {
         options = {
@@ -37,7 +38,8 @@ local servers = {
       }
     }
   },
-  ocamllsp      = {}
+  ocamllsp      = {},
+  lemminx       = {},
 }
 
 return servers

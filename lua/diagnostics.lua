@@ -12,9 +12,8 @@ local function lspSymbol(name, icon)
     { text = icon, numhl = 'DiagnosticDefault' .. name, texthl = 'Diagnostic' .. name }
   )
 end
-lspSymbol('Error', '')
-lspSymbol('Information', '')
-lspSymbol('Hint', '')
-lspSymbol('Info', '')
+lspSymbol('Error', '')
+lspSymbol('Information', '󰌵')
+lspSymbol('Hint', '󰌵')
+lspSymbol('Info', '󰌵')
 lspSymbol('Warn', '')
-

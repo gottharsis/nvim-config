@@ -32,7 +32,16 @@ return {
                     lualine_a = { "mode", },
                     lualine_b = { "branch" },
                     lualine_c = {
-                        -- { multicursor_mode }
+                        {
+                            function()
+                                local key = require("grapple").key()
+                                return "  [" .. key .. "]"
+                            end,
+                            cond = require("grapple").exists,
+                        },
+                        {
+                            multicursor_mode
+                        }
                     },
                     lualine_x = { { "diagnostics", sources = { "nvim_lsp" } }, },
                     lualine_y = { "filename", "filetype" },

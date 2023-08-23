@@ -10,4 +10,9 @@ return {
         "nvim-treesitter/nvim-treesitter",
     },
     ft = "qf",
+    opts = {
+        preview = {
+            auto_preview = false,
+        }
+    },
 }

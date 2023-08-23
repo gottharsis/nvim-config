@@ -6,7 +6,23 @@ return {
     },
     {
         "Shatur/neovim-ayu",
-        lazy = true,
+        priority = 1000,
+        config = function()
+            local colors = require('ayu.colors')
+            colors.generate(true)
+
+            require('ayu').setup {
+                mirage = true,
+                overrides = {
+                    RainbowDelimiterRed    = { fg = colors.markup },
+                    RainbowDelimiterBlue   = { fg = colors.entity },
+                    RainbowDelimiterCyan   = { fg = colors.regexp },
+                    RainbowDelimiterGreen  = { fg = colors.vcs_added },
+                    RainbowDelimiterOrange = { fg = colors.func },
+                    RainbowDelimiterViolet = { fg = colors.constant },
+                }
+            }
+        end
     },
     {
         "LunarVim/horizon.nvim",
@@ -35,12 +51,12 @@ return {
             vim.g.snazzybuddy_icons = true
 
             -- Add SnazzyIndent1 - SnazzyIndent7
-            local indent_colors = {}
-            for i = 1, 7 do
-                table.insert(indent_colors, 'SnazzyIndent' .. i)
-            end
+            -- local indent_colors = {}
+            -- for i = 1, 7 do
+            --     table.insert(indent_colors, 'SnazzyIndent' .. i)
+            -- end
 
-            vim.g.indent_blankline_char_highlight_list = indent_colors
+            -- vim.g.indent_blankline_char_highlight_list = indent_colors
 
             -- better bufferline stuff
             local bg_dark = "#22242e"
@@ -82,4 +98,8 @@ return {
         "folke/tokyonight.nvim",
         lazy = true,
     },
+    {
+        "cpea2506/one_monokai.nvim",
+        lazy = true
+    }
 }

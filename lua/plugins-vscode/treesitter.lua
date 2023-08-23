@@ -3,16 +3,14 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
-			"nvim-treesitter/nvim-treesitter-refactor",
 			"nvim-treesitter/playground",
 			-- "p00f/nvim-ts-rainbow"
 		},
 		opts = {
-			ensure_installed = 'all',          -- one of --all--, --maintained-- (parsers with maintainers), or a list of languages
-			ignore_install = { 'regex' },      -- List of parsers to ignore installing
+			ensure_installed = 'all', -- one of --all--, --maintained-- (parsers with maintainers), or a list of languages
+			-- ignore_install = { 'javascript' }, -- List of parsers to ignore installing
 			highlight = {
-				enable = true,                 -- false will disable the whole extension
+				enable = false,                -- false will disable the whole extension
 				disable = { 'c', 'rust', 'tex', 'latex' }, -- list of language that will be disabled
 				-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
 				-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
@@ -26,7 +24,7 @@ return {
 			-- 	extended_mode = true,
 			-- },
 			incremental_selection = {
-				enable = true,
+				enable = false,
 				keymaps = {
 					init_selection = '<M-o>',
 					node_incremental = '<M-o>',
@@ -37,6 +35,16 @@ return {
 			indent = {
 				enable = true,
 				-- disable = { "python" }, -- because python indent is broken
+			},
+			refactor = {
+				enable = false,
+				highlight_definitions = { enable = true, },
+				smart_rename = {
+					enable = true,
+					keymaps = {
+						smart_rename = "grr",
+					},
+				},
 			},
 			textobjects = {
 				select = {
@@ -71,7 +79,7 @@ return {
 					},
 				},
 				lsp_interop = {
-					enable = true,
+					enable = false,
 					border = 'none',
 					-- peek_definition_code = {
 					-- ["<leader>df"] = "@function.outer",
@@ -102,8 +110,8 @@ return {
 			require("nvim-treesitter.configs").setup(opts)
 
 			-- folding
-			vim.opt.foldmethod = "expr"
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+			-- vim.opt.foldmethod = "expr"
+			-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 		end
 	},
 	-- {

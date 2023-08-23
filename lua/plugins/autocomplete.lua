@@ -40,7 +40,6 @@ return {
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-omni",
             "windwp/nvim-autopairs",
-            "zbirenbaum/copilot-cmp",
 
         },
         config = function()
@@ -72,7 +71,18 @@ return {
                     ['<C-f>'] = cmp.mapping.scroll_docs(4),
                     ['<C-Space>'] = cmp.mapping.complete(),
                     ['<C-e>'] = cmp.mapping.abort(),
-                    ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    -- ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ['<CR>'] = cmp.mapping({
+                        i = function(fallback)
+                            if cmp.visible() and cmp.get_active_entry() then
+                                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                            else
+                                fallback()
+                            end
+                        end,
+                        s = cmp.mapping.confirm({ select = true }),
+                        c = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false })
+                    }),
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             local entry = cmp.get_selected_entry()
@@ -127,14 +137,36 @@ return {
                     {
                         { name = 'buffer' },
                     }),
+                -- formatting = {
+                --     format = lspkind.cmp_format({
+                --         mode = "symbol",
+                --         maxwidth = 50,
+                --         symbol_map = {
+                --             Copilot = "",
+                --         }
+                --     })
+                -- },
+                window = {
+                    completion = {
+                        winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+                        col_offset = -3,
+                        side_padding = 0,
+                    },
+                },
                 formatting = {
-                    format = lspkind.cmp_format({
-                        mode = "symbol",
-                        maxwidth = 50,
-                        symbol_map = {
-                            Copilot = "",
-                        }
-                    })
+                    fields = { "kind", "abbr", "menu" },
+                    format = function(entry, vim_item)
+                        local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry,
+                            vim_item)
+                        local strings = vim.split(kind.kind, "%s", { trimempty = true })
+                        kind.kind = " " .. (strings[1] or "") .. " "
+                        kind.menu = "    (" .. (strings[2] or "") .. ")"
+
+                        return kind
+                    end,
+                },
+                performance = {
+                    throttle = 300,
                 },
             })
 

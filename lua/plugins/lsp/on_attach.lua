@@ -21,17 +21,26 @@ M.format_on_save = function(client, bufnr)
     if client.supports_method("textDocument/formatting") and not vim.tbl_contains(no_format, client.name) then
         print("Client " .. client.name .. " supports formatting")
         vim.api.nvim_clear_autocmds({ buffer = bufnr, group = formatting_augroup })
+        vim.b.format_on_save = true
         vim.api.nvim_create_autocmd("BufWritePre", {
             group = formatting_augroup,
             buffer = bufnr,
             desc = "Format on Save",
             callback = function()
-                print("Formatting with " .. client.name)
-                vim.lsp.buf.format({ bufnr = bufnr })
+                if vim.b.format_on_save then
+                    print("Formatting with " .. client.name)
+                    vim.lsp.buf.format({ bufnr = bufnr })
+                end
             end,
         })
 
         vim.api.nvim_buf_create_user_command(bufnr, "Format", function() vim.lsp.buf.format({ bufnr = bufnr }) end, {})
+        vim.api.nvim_buf_create_user_command(bufnr, "ToggleFormatOnSave",
+            function()
+                vim.b.format_on_save = not vim.b.format_on_save
+                print("Formatting on save enabled: " .. tostring(vim.b.format_on_save))
+            end, {}
+        )
     end
 end
 

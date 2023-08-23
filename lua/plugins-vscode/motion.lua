@@ -1,7 +1,7 @@
 return {
     { "wellle/targets.vim",    lazy = false, },
     -- { "tpope/vim-commentary", lazy = false },
-    { "numToStr/Comment.nvim", config = true },
+    -- { "numToStr/Comment.nvim", config = true },
     { "tpope/vim-surround",    lazy = false },
     -- {
     --     "ggandor/leap.nvim",
@@ -20,7 +20,7 @@ return {
             { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
             {
                 "S",
-                mode = { "n", "o", },
+                mode = { "n", "o", "x" },
                 function() require("flash").treesitter() end,
                 desc =
                 "Flash Treesitter"

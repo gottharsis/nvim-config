@@ -9,7 +9,7 @@ function M.set_keymaps(client, bufnr)
 
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation", buffer = bufnr })
 
-    vim.keymap.set("i", "<leader>k", vim.lsp.buf.signature_help, { desc = "Method signature", buffer = bufnr })
+    vim.keymap.set("n", "<leader>k", vim.lsp.buf.signature_help, { desc = "Method signature", buffer = bufnr })
     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { desc = "Add workspace folder", buffer = bufnr })
 
     vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder,
@@ -17,9 +17,13 @@ function M.set_keymaps(client, bufnr)
     vim.keymap.set("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
         { desc = "List workspace folders", buffer = bufnr })
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type Definition", buffer = bufnr })
-    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, { desc = "LSP Rename", buffer = bufnr })
+    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename", buffer = bufnr })
     vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "LSP Rename", buffer = bufnr })
-    vim.keymap.set("n", "gr", [[ :Trouble lsp_references<cr> ]], { desc = "Show References", buffer = bufnr })
+    vim.keymap.set("n", "gr", [[ :Trouble lsp_references<cr> ]], { desc = "Show References (Trouble)", buffer = bufnr })
+
+    vim.keymap.set("n", "gR",
+        function() require("telescope.builtin").lsp_references({ jump_type = "vsplit", include_current_line = true }) end,
+        { desc = "Show References (Telescope)", buffer = bufnr })
     vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "Code action", buffer = bufnr })
 
 

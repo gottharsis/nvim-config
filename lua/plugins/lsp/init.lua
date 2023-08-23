@@ -69,9 +69,22 @@ return {
 
             null_ls.setup({
                 sources = {
+                    -- JS
                     null_ls.builtins.formatting.prettierd,
+                    null_ls.builtins.diagnostics.eslint.with({
+                        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+                        cwd = function() return nil end,
+                    }),
+
+                    -- python
                     null_ls.builtins.formatting.black,
+                    null_ls.builtins.formatting.isort,
+                    null_ls.builtins.diagnostics.pylint.with({ extra_args = "--max-line-length", 88 }),
+                    -- null_ls.builtins.diagnostics.flake8.with({ extra_args = { "--max-line-length", "120" } }),
+
+                    -- ocaml
                     null_ls.builtins.formatting.ocamlformat,
+
                 },
                 on_attach = require("plugins/lsp/on_attach").format_on_save
             })
@@ -88,5 +101,6 @@ return {
             })
         end
     },
-    { "folke/neodev.nvim", opts = {} },
+    { "folke/neodev.nvim",    opts = {} },
+    { "RRethy/vim-illuminate" }
 }

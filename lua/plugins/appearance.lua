@@ -67,7 +67,6 @@ return {
     },
     {
         "hiphish/rainbow-delimiters.nvim",
-        enabled = false,
         config = function()
             local rainbow_delimiters = require 'rainbow-delimiters'
 
@@ -75,6 +74,7 @@ return {
                 strategy = {
                     [''] = rainbow_delimiters.strategy['global'],
                     vim = rainbow_delimiters.strategy['local'],
+                    regex = function() return nil end,
                 },
                 query = {
                     [''] = 'rainbow-delimiters',
@@ -82,14 +82,14 @@ return {
                 },
                 highlight = {
                     'RainbowDelimiterRed',
-                    'RainbowDelimiterYellow',
                     'RainbowDelimiterBlue',
                     'RainbowDelimiterOrange',
-                    'RainbowDelimiterGreen',
                     'RainbowDelimiterViolet',
                     'RainbowDelimiterCyan',
                 },
+                blacklist = { 'regex' },
             }
         end
-    }
+    },
+    { "folke/twilight.nvim" },
 }

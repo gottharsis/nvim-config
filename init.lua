@@ -15,6 +15,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
 require("diagnostics")
+require("keymaps")
 
 require("lazy").setup("plugins")
 
@@ -26,17 +27,6 @@ vim.o.signcolumn = "auto:1-2"
 vim.o.number = true
 vim.o.relativenumber = true
 
-vim.keymap.set('i', 'jk', '<esc>', { desc = "Return to normal mode" })
-
-vim.keymap.set("v", "J", ":m '>+1<cr>gv=gv", { desc = "Move block down" })
-vim.keymap.set("v", "K", ":m '<-2<cr>gv=gv", { desc = "Move block down" })
-
--- move through buffers
-vim.keymap.set("n", ",m", "<cmd>bp<cr>", { desc = "Prev Buffer" })
-vim.keymap.set("n", ",.", "<cmd>bn<cr>", { desc = "Next Buffer" })
-vim.keymap.set("n", ",d", "<cmd>bd<cr>", { desc = "Delete Buffer" })
-
-vim.keymap.set("n", "H", "<cmd>noh<cr>", { desc = "Remove highlights from search" })
 
 -- vim.cmd [[ colorscheme nightfox ]]
 
@@ -69,3 +59,31 @@ set splitright splitbelow
 
 -- require('colorbuddy').colorscheme('snazzybuddy')
 vim.cmd [[ colorscheme ayu-mirage ]]
+
+-- WSL clipboard
+-- vim.g.clipboard = {
+--   ['name'] = 'WslClipboard',
+--   ['copy'] = {
+--     ['+'] = 'clip.exe',
+--     ['*'] = 'clip.exe',
+--   },
+--   ['paste'] = {
+--     ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+--     ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+--   },
+--   ['cache_enabled'] = 0,
+-- }
+--
+
+vim.g.clipboard = {
+  name = "win32yank-wsl",
+  copy = {
+    ["+"] = "win32yank.exe -i --crlf",
+    ["*"] = "win32yank.exe -i --crlf"
+  },
+  paste = {
+    ["+"] = "win32yank.exe -o --crlf",
+    ["*"] = "win32yank.exe -o --crlf"
+  },
+  cache_enable = 0,
+}
