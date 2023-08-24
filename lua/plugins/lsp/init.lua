@@ -1,6 +1,7 @@
 return {
     {
         "neovim/nvim-lspconfig",
+        event = "VeryLazy",
         dependencies = { "cmp-nvim-lsp", "ray-x/lsp_signature.nvim", "nvim-telescope/telescope.nvim",
             "folke/trouble.nvim", "ray-x/lsp_signature.nvim" },
         config = function()
@@ -64,6 +65,7 @@ return {
     {
         "jose-elias-alvarez/null-ls.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
+        event = "VeryLazy",
         config = function()
             local null_ls = require("null-ls")
 
@@ -92,6 +94,7 @@ return {
     },
     {
         "ray-x/lsp_signature.nvim",
+        event = "VeryLazy",
         config = function()
             require("lsp_signature").setup({
                 bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -101,6 +104,6 @@ return {
             })
         end
     },
-    { "folke/neodev.nvim",    opts = {} },
-    { "RRethy/vim-illuminate" }
+    { "folke/neodev.nvim",    opts = {} , ft = "lua"},
+    { "RRethy/vim-illuminate", event = "VeryLazy" }
 }

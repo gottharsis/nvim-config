@@ -26,7 +26,8 @@ return {
 
             -- stop snippets when you leave to normal mode
             vim.cmd [[ autocmd ModeChanged * lua LeaveSnippet() ]]
-        end
+        end,
+        event = "VeryLazy",
     },
     {
         "hrsh7th/nvim-cmp",
@@ -193,6 +194,7 @@ return {
                 'confirm_done',
                 cmp_autopairs.on_confirm_done()
             )
-        end
+        end,
+        event = "VeryLazy",
     }
 }

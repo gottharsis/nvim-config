@@ -24,6 +24,7 @@ return {
                     end
                 })
             })
-        end
+        end,
+        event = "BufReadPost",
     }
 }

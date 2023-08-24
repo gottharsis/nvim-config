@@ -1,8 +1,8 @@
 return {
-    { "wellle/targets.vim",    lazy = false, },
+    { "wellle/targets.vim",    event = "InsertEnter", },
     -- { "tpope/vim-commentary", lazy = false },
-    { "numToStr/Comment.nvim", config = true },
-    { "tpope/vim-surround",    lazy = false },
+    { "numToStr/Comment.nvim", config = true,       event = "InsertEnter" },
+    { "tpope/vim-surround",    lazy = false,        event = "InsertEnter" },
     -- {
     --     "ggandor/leap.nvim",
     --     dependencies = { "tpope/vim-repeat" },

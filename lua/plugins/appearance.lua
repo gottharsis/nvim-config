@@ -63,7 +63,8 @@ return {
                 show_current_context = true,
                 show_current_context_start = true,
             }
-        end
+        end,
+        event = "VeryLazy",
     },
     {
         "hiphish/rainbow-delimiters.nvim",
@@ -89,7 +90,8 @@ return {
                 },
                 blacklist = { 'regex' },
             }
-        end
+        end,
+        event = "BufEnter",
     },
-    { "folke/twilight.nvim" },
+    { "folke/twilight.nvim", cmd = { "Twilight", "TwilightEnable" } },
 }

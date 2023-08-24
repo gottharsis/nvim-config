@@ -136,6 +136,8 @@ return {
     },
     {
         "windwp/nvim-ts-autotag",
-        config = true
+        config = true,
+        event = "InsertEnter",
+        ft = { "html", "xml", "xsd", "typescriptreact", "javascriptreact", "markdown" }
     }
 }

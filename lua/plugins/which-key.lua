@@ -1,7 +1,9 @@
 return {
     {
         "folke/which-key.nvim",
-        config = function() 
+        -- lazy = false,
+        event = "VeryLazy",
+        config = function()
             local wk = require('which-key')
             wk.setup()
 
@@ -10,7 +12,6 @@ return {
                 [","] = { name = "+buffers" },
                 ["<leader>r"] = { name = "+refactoring" }
             }
-
         end
     }
 }

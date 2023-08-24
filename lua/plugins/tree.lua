@@ -7,7 +7,7 @@ return {
         keys = {
             { "<C-b>", "<cmd>NvimTreeFindFileToggle<cr>", desc = "Toggle File Tree" }
         },
-        opts = {}
+        opts = {},
     },
 
 }

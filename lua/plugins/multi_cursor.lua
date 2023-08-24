@@ -11,6 +11,7 @@ return {
                 ["Find Under"] = "<C-d>",
                 ["Find Subword Under"] = "<C-d>",
             }
-        end
+        end,
+        event = "InsertEnter",
     }
 }

@@ -69,5 +69,8 @@ return {
         },
         { "<leader>gb", "<cmd>Telescope git_branches<cr>", "Switch Branch" },
         { "<leader>K",  "<cmd>Telescope colorscheme<cr>",  "Change Colorscheme" }
-    }
+    },
+    cmd = "Telescope",
+    event = "VeryLazy",
+
 }

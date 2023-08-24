@@ -12,5 +12,6 @@ return {
     },
     config = function()
         require("trouble").setup()
-    end
+    end,
+    cmd = { "Trouble", "TroubleToggle", }
 }

@@ -24,7 +24,13 @@ return {
         },
         cmd = {
             "G", "Git"
-        }
+        },
     },
-    { "sindrets/diffview.nvim" }
+    {
+        "sindrets/diffview.nvim",
+        keys = {
+            { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Show Diffview" },
+        },
+        cmd = { "DiffviewOpen" },
+    },
 }
