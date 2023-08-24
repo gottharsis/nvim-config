@@ -17,7 +17,7 @@ vim.g.maplocalleader = "\\"
 require("diagnostics")
 require("keymaps")
 
-require("lazy").setup("plugins")
+require("lazy").setup("plugins", { defaults = { lazy = true } })
 
 -- general options
 vim.o.splitright = true
