@@ -6,17 +6,10 @@ return {
         config = function()
             require("mason").setup()
         end,
-        event = "VeryLazy",
+        cmd = { "Mason", "MasonInstall" },
     },
     {
-        "williamboman/mason-lspconfig.nvim",
-        lazy = true,
-        dependencies = { "williamboman/mason.nvim", "neovim/nvim-lspconfig" },
-        config = function()
-            require("mason-lspconfig").setup {
-                -- automatic_installation = true
-            }
-        end,
-        event = "VeryLazy"
+        "https://github.com/williamboman/mason-lspconfig.nvim",
+        dependencies = {"williamboman/mason.nvim"}
     }
 }

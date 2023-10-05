@@ -6,7 +6,7 @@ return {
     },
     {
         "Shatur/neovim-ayu",
-        priority = 1000,
+        lazy = false,
         config = function()
             local colors = require('ayu.colors')
             colors.generate(true)
@@ -96,10 +96,14 @@ return {
     },
     {
         "folke/tokyonight.nvim",
-        lazy = true,
+        priority = 1000,
     },
     {
         "cpea2506/one_monokai.nvim",
         lazy = true
+    },
+    {
+        "olimorris/onedarkpro.nvim",
+        lazy = true,
     }
 }

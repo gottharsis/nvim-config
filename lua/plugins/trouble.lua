@@ -4,14 +4,16 @@ return {
         "nvim-tree/nvim-web-devicons"
     },
     keys = {
-        { "<leader>xx", "<cmd>TroubleToggle<cr>",                 desc = "Toggle Trouble" },
-        { "<leader>xd", "<cmd>Trouble document_diagnostics<CR>",  desc = "Document diagnostics" },
-        { "<leader>xD", "<cmd>Trouble workspace_diagnostics<CR>", desc = "Workspace diagnostics" },
-        { "<leader>xq", "<cmd>Trouble quickfix<CR>",              desc = "Quickfix" },
-        { "<leader>xr", "<cmd>Trouble lsp_references<cr>",        desc = "LSP References (Trouble)" }
+        { "<leader>xx", "<cmd>TroubleToggle<cr>",                       desc = "Toggle Trouble" },
+        { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<CR>",  desc = "Document diagnostics" },
+        { "<leader>xD", "<cmd>TroubleToggle workspace_diagnostics<CR>", desc = "Workspace diagnostics" },
+        { "<leader>xq", "<cmd>TroubleToggle quickfix<CR>",              desc = "Quickfix" },
+        { "<leader>xr", "<cmd>TroubleToggle lsp_references<cr>",        desc = "LSP References (Trouble)" }
     },
-    config = function()
-        require("trouble").setup()
-    end,
-    cmd = { "Trouble", "TroubleToggle", }
+    opts = {
+        mode = "document_diagnostics",
+        severity = vim.diagnostic.severity.ERROR,
+    },
+    cmd = { "Trouble", "TroubleToggle", },
+    event = "VeryLazy"
 }

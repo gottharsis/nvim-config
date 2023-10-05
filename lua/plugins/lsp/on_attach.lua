@@ -1,7 +1,7 @@
 local M = {}
 
 local keymaps = require("plugins/lsp/keymaps")
--- local navic = require("nvim-navic")
+local navic = require("nvim-navic")
 -- format on save
 
 -- local formatting_augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -16,7 +16,7 @@ local keymaps = require("plugins/lsp/keymaps")
 
 local formatting_augroup = vim.api.nvim_create_augroup("FormatOnSave", {})
 M.format_on_save = function(client, bufnr)
-    local no_format = { "tsserver" }
+    local no_format = { "tsserver", }
 
     if client.supports_method("textDocument/formatting") and not vim.tbl_contains(no_format, client.name) then
         print("Client " .. client.name .. " supports formatting")
@@ -50,6 +50,9 @@ M.on_attach = function(client, bufnr)
 
     keymaps.set_keymaps(client, bufnr)
 
+    if client.server_capabilities.documentSymbolProvider then
+        navic.attach(client, bufnr)
+    end
     -- navic.attach(client, bufnr)
 
 

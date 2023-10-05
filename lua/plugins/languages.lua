@@ -45,6 +45,8 @@ return {
             -- vim.keymap.set("n", "<leader>m", "<cmd>VimtexTocToggle", { desc="Toggle document outline" } )
         end,
         ft = { "tex", "latex" }
+    },
 
-    }
+    -- cpp
+    { "p00f/clangd_extensions.nvim", ft = { "c", "cpp" } }
 }

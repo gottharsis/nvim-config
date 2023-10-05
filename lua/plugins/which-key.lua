@@ -10,7 +10,11 @@ return {
             wk.register {
                 ["<leader>g"] = { name = "+git" },
                 [","] = { name = "+buffers" },
-                ["<leader>r"] = { name = "+refactoring" }
+                ["<leader>r"] = { name = "+tmux-runner" },
+                ["<leader>d"] = { name = "+debug" },
+                ["<leader>t"] = { name = "+test" },
+                ["<leader>x"] = { name = "+trouble" },
+                ["<leader>v"] = { name = "+view" },
             }
         end
     }

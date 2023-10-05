@@ -40,7 +40,7 @@ return {
             "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-omni",
-            "windwp/nvim-autopairs",
+            -- "windwp/nvim-autopairs",
 
         },
         config = function()
@@ -52,7 +52,7 @@ return {
 
 
 
-            local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+            -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
             local has_words_before = function()
                 unpack = unpack or table.unpack
@@ -190,10 +190,10 @@ return {
             })
 
 
-            cmp.event:on(
-                'confirm_done',
-                cmp_autopairs.on_confirm_done()
-            )
+            -- cmp.event:on(
+            --     'confirm_done',
+            --     cmp_autopairs.on_confirm_done()
+            -- )
         end,
         event = "VeryLazy",
     }

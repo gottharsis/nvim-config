@@ -17,11 +17,10 @@ function M.set_keymaps(client, bufnr)
     vim.keymap.set("n", "<leader>wl", function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
         { desc = "List workspace folders", buffer = bufnr })
     vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, { desc = "Type Definition", buffer = bufnr })
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "LSP Rename", buffer = bufnr })
     vim.keymap.set("n", "<F2>", vim.lsp.buf.rename, { desc = "LSP Rename", buffer = bufnr })
-    vim.keymap.set("n", "gr", [[ :Trouble lsp_references<cr> ]], { desc = "Show References (Trouble)", buffer = bufnr })
+    vim.keymap.set("n", "gR", [[ :Trouble lsp_references<cr> ]], { desc = "Show References (Trouble)", buffer = bufnr })
 
-    vim.keymap.set("n", "gR",
+    vim.keymap.set("n", "gr",
         function() require("telescope.builtin").lsp_references({ jump_type = "vsplit", include_current_line = true }) end,
         { desc = "Show References (Telescope)", buffer = bufnr })
     vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, { desc = "Code action", buffer = bufnr })

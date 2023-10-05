@@ -1,13 +1,15 @@
+vim.cmd [[ packadd cfilter ]]
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -55,10 +57,11 @@ set smartcase
 set relativenumber
 imap jk <esc>
 set splitright splitbelow
+set scrolloff=5
 ]]
 
 -- require('colorbuddy').colorscheme('snazzybuddy')
-vim.cmd [[ colorscheme ayu-mirage ]]
+vim.cmd [[ colorscheme tokyonight-moon ]]
 
 -- WSL clipboard
 -- vim.g.clipboard = {
@@ -76,14 +79,14 @@ vim.cmd [[ colorscheme ayu-mirage ]]
 --
 
 vim.g.clipboard = {
-  name = "win32yank-wsl",
-  copy = {
-    ["+"] = "win32yank.exe -i --crlf",
-    ["*"] = "win32yank.exe -i --crlf"
-  },
-  paste = {
-    ["+"] = "win32yank.exe -o --crlf",
-    ["*"] = "win32yank.exe -o --crlf"
-  },
-  cache_enable = 0,
+    name = "win32yank-wsl",
+    copy = {
+        ["+"] = "win32yank.exe -i --crlf",
+        ["*"] = "win32yank.exe -i --crlf"
+    },
+    paste = {
+        ["+"] = "win32yank.exe -o --crlf",
+        ["*"] = "win32yank.exe -o --crlf"
+    },
+    cache_enable = 0,
 }

@@ -3,7 +3,7 @@ return {
         "neovim/nvim-lspconfig",
         event = "VeryLazy",
         dependencies = { "cmp-nvim-lsp", "ray-x/lsp_signature.nvim", "nvim-telescope/telescope.nvim",
-            "folke/trouble.nvim", "ray-x/lsp_signature.nvim" },
+            "folke/trouble.nvim", "SmiteshP/nvim-navic", "mason-lspconfig.nvim" },
         config = function()
             local on_attach = require("plugins/lsp/on_attach").on_attach
             local servers = require("plugins/lsp/servers")
@@ -63,36 +63,6 @@ return {
 
     },
     {
-        "jose-elias-alvarez/null-ls.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-        event = "VeryLazy",
-        config = function()
-            local null_ls = require("null-ls")
-
-            null_ls.setup({
-                sources = {
-                    -- JS
-                    null_ls.builtins.formatting.prettierd,
-                    null_ls.builtins.diagnostics.eslint.with({
-                        method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-                        cwd = function() return nil end,
-                    }),
-
-                    -- python
-                    null_ls.builtins.formatting.black,
-                    null_ls.builtins.formatting.isort,
-                    null_ls.builtins.diagnostics.pylint.with({ extra_args = "--max-line-length", 88 }),
-                    -- null_ls.builtins.diagnostics.flake8.with({ extra_args = { "--max-line-length", "120" } }),
-
-                    -- ocaml
-                    null_ls.builtins.formatting.ocamlformat,
-
-                },
-                on_attach = require("plugins/lsp/on_attach").format_on_save
-            })
-        end
-    },
-    {
         "ray-x/lsp_signature.nvim",
         event = "VeryLazy",
         config = function()
@@ -104,6 +74,40 @@ return {
             })
         end
     },
-    { "folke/neodev.nvim",    opts = {} , ft = "lua"},
-    { "RRethy/vim-illuminate", event = "VeryLazy" }
+    { "folke/neodev.nvim", opts = {}, ft = "lua" },
+    -- { "RRethy/vim-illuminate", event = "VeryLazy" },
+    {
+        "SmiteshP/nvim-navic",
+        opts = {
+            icons = {
+                File = ' ',
+                Module = ' ',
+                Namespace = ' ',
+                Package = ' ',
+                Class = ' ',
+                Method = ' ',
+                Property = ' ',
+                Field = ' ',
+                Constructor = ' ',
+                Enum = ' ',
+                Interface = ' ',
+                Function = ' ',
+                Variable = ' ',
+                Constant = ' ',
+                String = ' ',
+                Number = ' ',
+                Boolean = ' ',
+                Array = ' ',
+                Object = ' ',
+                Key = ' ',
+                Null = ' ',
+                EnumMember = ' ',
+                Struct = ' ',
+                Event = ' ',
+                Operator = ' ',
+                TypeParameter = ' '
+            },
+            depth_limit = 3,
+        }
+    }
 }

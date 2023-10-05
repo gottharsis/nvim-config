@@ -37,7 +37,7 @@ return {
 			},
 			indent = {
 				enable = true,
-				-- disable = { "python" }, -- because python indent is broken
+				disable = { "python", "xml", "xsd" }, -- because python indent is broken
 			},
 			textobjects = {
 				select = {
@@ -80,6 +80,11 @@ return {
 					-- },
 				},
 			},
+			refactor = {
+				highlight_definitions = {
+					enable = true,
+				},
+			},
 			playground = {
 				enable = true,
 				disable = {},
@@ -97,14 +102,15 @@ return {
 					goto_node = '<cr>',
 					show_help = '?',
 				},
-			}
+			},
+			autotag = { enable = true },
 		},
 		config = function(_, opts)
 			require("nvim-treesitter.configs").setup(opts)
 
 			-- folding
-			vim.opt.foldmethod = "expr"
-			vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+			-- vim.opt.foldmethod = "expr"
+			-- vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 		end
 	},
 	-- {

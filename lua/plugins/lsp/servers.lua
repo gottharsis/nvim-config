@@ -1,5 +1,8 @@
 local servers = {
   pyright       = {},
+  -- pylyzer       = {},
+  -- jedi_language_server = {},
+  -- pylsp         = {},
   tsserver      = {},
   gopls         = {},
   clojure_lsp   = {},

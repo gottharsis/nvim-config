@@ -10,16 +10,34 @@ return {
     },
     config = function()
         local lga_actions = require("telescope-live-grep-args.actions")
+        local actions = require("telescope.actions")
 
         require('telescope').setup({
             defaults = {
                 layout_strategy = "flex",
                 layout_config = { prompt_position = "top" },
-                sorting_strategy = "ascending"
+                sorting_strategy = "ascending",
+                mappings = {
+                    i = {
+                        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                        ["<M-q>"] = actions.smart_add_to_qflist + actions.open_qflist,
+                    },
+                    n = {
+                        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                        ["<M-q>"] = actions.smart_add_to_qflist + actions.open_qflist,
+                    }
+                }
             },
             pickers = {
                 current_buffer_fuzzy_find = {
                     theme = "ivy",
+                },
+                live_grep = {
+                    mappings = {
+                        i = {
+                            ["<C-Space>"] = actions.to_fuzzy_refine,
+                        }
+                    }
                 }
             },
             extensions = {
@@ -27,7 +45,8 @@ return {
                     auto_quoting = true,
                     mappings = {
                         i = {
-                            ["<C-k>"] = lga_actions.quote_prompt()
+                            ["<C-k>"] = lga_actions.quote_prompt(),
+                            ["<C-Space>"] = actions.to_fuzzy_refine,
                         }
                     }
                 }
@@ -52,7 +71,7 @@ return {
             "<leader>*",
             "<cmd>Telescope grep_string<cr>",
             desc = "Search string in files",
-            mode = { "n", "v" }
+            mode = { "n", "x" }
         },
         {
             "<leader><space>",
@@ -60,7 +79,7 @@ return {
             desc =
             "Fuzzy Search File"
         },
-        { ",,",         "<cmd>Telescope buffers<cr>",      "List Buffers" },
+        { "<leader>b",  "<cmd>Telescope buffers<cr>",      "List Buffers" },
         {
             "<leader>e",
             function() require("telescope.builtin").find_files({ cwd = "~/.config/nvim" }) end,

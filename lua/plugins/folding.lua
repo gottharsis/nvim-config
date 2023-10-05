@@ -19,7 +19,7 @@ return {
 
             require('ufo').setup({
                 require('ufo').setup({
-                    provider_selector = function(bufnr, filetype, buftype)
+                    provider_selector = function(bufnr, _, _)
                         return { 'treesitter', 'indent' }
                     end
                 })

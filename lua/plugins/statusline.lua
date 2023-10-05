@@ -30,7 +30,11 @@ return {
                 },
                 sections = {
                     lualine_a = { "mode", },
-                    lualine_b = { "branch" },
+                    lualine_b = {
+                        {
+                            multicursor_mode
+                        }
+                    },
                     lualine_c = {
                         {
                             function()
@@ -39,30 +43,42 @@ return {
                             end,
                             cond = require("grapple").exists,
                         },
-                        {
-                            multicursor_mode
-                        }
                     },
                     lualine_x = { { "diagnostics", sources = { "nvim_lsp" } }, },
-                    lualine_y = { "filename", "filetype" },
+                    lualine_y = { "branch", "filetype" },
                     lualine_z = { "location" }
                 },
                 inactive_sections = {
                     lualine_a = {},
                     lualine_b = {},
-                    lualine_c = { "filename" },
+                    lualine_c = {},
                     lualine_x = { "location" },
                     lualine_y = {},
                     lualine_z = {}
                 },
-                tabline = {},
-                extensions = {}
+                winbar = {
+                    lualine_a = {},
+                    lualine_c = {
+                        {
+                            "navic"
+                        }
+                    },
+                    lualine_b = {
+                    },
+                    lualine_x = { "filename" },
+                    lualine_z = {}
+                },
+                inactive_winbar = {
+                    lualine_x = { "filename" }
+                },
+                extensions = { 'nvim-tree' }
             }
         end
     },
     {
         "akinsho/bufferline.nvim",
         lazy = false,
+        enabled = false,
         dependencies = { "nvim-tree/nvim-web-devicons" },
         opts = {
             options = {
@@ -78,9 +94,6 @@ return {
                 themable = true,
                 always_show_bufferline = true,
             },
-        },
-        keys = {
-            { ",D", "<cmd>BufferLineCloseOthers<cr>", desc = "Close all other buffers" }
         },
         config = true,
     },

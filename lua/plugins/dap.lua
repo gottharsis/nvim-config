@@ -12,7 +12,6 @@ return {
             require('dap-python').setup("~/.virtualenvs/debugpy/bin/python")
         end,
         ft = "python",
-        event = "VeryLazy",
     },
     {
         "mfussenegger/nvim-dap",

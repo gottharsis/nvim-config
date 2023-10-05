@@ -17,20 +17,40 @@ return {
             sign_priority = 3
         }
     },
-    {
-        "tpope/vim-fugitive",
-        keys = {
-            { "<leader>gg", "<cmd>G<cr>", desc = "Status" }
-        },
-        cmd = {
-            "G", "Git"
-        },
-    },
+    -- {
+    --     "tpope/vim-fugitive",
+    --     keys = {
+    --         { "<leader>gg", "<cmd>G<cr>", desc = "Status" }
+    --     },
+    --     cmd = {
+    --         "G", "Git"
+    --     },
+    -- },
     {
         "sindrets/diffview.nvim",
         keys = {
             { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Show Diffview" },
         },
         cmd = { "DiffviewOpen" },
+    },
+    {
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",         -- required
+            "nvim-telescope/telescope.nvim", -- optional
+            "sindrets/diffview.nvim",        -- optional
+        },
+        opts = {
+            mappings = {
+                status = {
+                    ["<esc><esc><esc>"] = "Close",
+                },
+            },
+        },
+        keys = {
+            { "<leader>gg", "<cmd>Neogit kind=split<cr>", desc = "Status" },
+            { "<leader>gt", "<cmd>Neogit kind=tab<cr>",   desc = "Status (new tab)" }
+        },
+        cmd = { "Neogit" },
     },
 }

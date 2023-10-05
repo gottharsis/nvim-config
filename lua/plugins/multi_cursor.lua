@@ -11,7 +11,8 @@ return {
                 ["Find Under"] = "<C-d>",
                 ["Find Subword Under"] = "<C-d>",
             }
+
+            vim.g.VM_theme = "neon"
         end,
-        event = "InsertEnter",
     }
 }
