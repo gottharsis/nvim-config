@@ -16,6 +16,9 @@ vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { desc = "Previous QuickFix Item
 vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { desc = "Next QuickFix Item" })
 
 
+vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
+
+
 local gotofile = function()
   local cursor = vim.api.nvim_win_get_cursor(0)
   local bufnr = vim.api.nvim_get_current_buf()
@@ -27,6 +30,26 @@ local gotofile = function()
   vim.cmd('norm! gF')
 end
 
+local send_keys = function(keys)
+  vim.api.nvim_feedkeys(
+    vim.api.nvim_replace_termcodes(keys, true, true, true),
+    'n',
+    false
+  )
+end
+
+local edit_current_line = function()
+  send_keys([[<C-\><C-n>]])
+  vim.cmd [[ y | vertical new | norm! P]]
+  send_keys([[^dw]])
+
+  vim.keymap.set("n", [[<C-u>]], [[^D | :q!<CR> | i<C-c><C-\><C-n>pi]], { buffer = 0, noremap = true })
+
+  vim.cmd [[
+    nnoremap <buffer> <C-U> ^D \|:q!<CR> \| i<C-c><C-\><C-n>pi
+  ]]
+end
+
 -- terminal mappinghs
 local group = vim.api.nvim_create_augroup('ToggleTerm', {})
 vim.api.nvim_create_autocmd('TermOpen', {
@@ -35,9 +58,11 @@ vim.api.nvim_create_autocmd('TermOpen', {
     local opts = { buffer = true }
     vim.keymap.set('n', 'gF', gotofile, opts)
     vim.keymap.set('n', 'gf', gotofile, opts)
-    vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+    vim.keymap.set('n', '<C-c>', [[i<C-c><C-\><C-n>]], opts)
+    vim.keymap.set("t", "<esc>", [[<esc><C-\><C-n>]], { buffer = true, noremap = true })
     vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
     vim.keymap.set('t', '<C-h>', '<C-o><C-h>', { buffer = true, noremap = true })
+    vim.keymap.set('t', '<C-U>', edit_current_line, { buffer = true, noremap = true })
   end,
   group = group
 })

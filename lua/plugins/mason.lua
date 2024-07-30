@@ -1,6 +1,7 @@
 return {
     {
         "williamboman/mason.nvim",
+        cond = not vim.g.vscode,
         lazy = true,
         build = ":MasonUpdate",
         config = function()
@@ -10,6 +11,7 @@ return {
     },
     {
         "https://github.com/williamboman/mason-lspconfig.nvim",
-        dependencies = {"williamboman/mason.nvim"}
+        cond = not vim.g.vscode,
+        dependencies = { "williamboman/mason.nvim" }
     }
 }

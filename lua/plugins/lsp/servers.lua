@@ -6,7 +6,9 @@ local servers = {
   tsserver      = {},
   gopls         = {},
   clojure_lsp   = {},
-  clangd        = {},
+  clangd        = {
+    cmd = { "clangd", "--fallback-style='Google'" }
+  },
   -- ccls = {},
   rust_analyzer = {},
   emmet_ls      = {

@@ -1,6 +1,4 @@
 return {
-    { "tpope/vim-sensible", lazy = false },
-    "tpope/vim-sleuth",
     {
         "tpope/vim-abolish",
         init = function()
@@ -10,5 +8,12 @@ return {
             { "<localleader>cr", "<Plug>(abolish-coerce-word)", desc = "Coerce (Abolish)", mode = { "n", "x" } }
         },
         cmd = { "S", "Subvert", "Abolish" },
+    },
+    {
+        'NMAC427/guess-indent.nvim',
+        cond = not vim.g.vscode,
+        config = function()
+            require('guess-indent').setup {}
+        end,
     },
 }

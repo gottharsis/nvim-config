@@ -1,24 +1,24 @@
-local
-highlight = {
-    'RainbowDelimiterRed',
-    'RainbowDelimiterBlue',
-    'RainbowDelimiterOrange',
-    'RainbowDelimiterViolet',
-    'RainbowDelimiterCyan',
+-- local highlight = {
+--     'RainbowDelimiterRed',
+--     'RainbowDelimiterBlue',
+--     'RainbowDelimiterOrange',
+--     'RainbowDelimiterViolet',
+--     'RainbowDelimiterCyan',
+-- }
+
+
+local highlight = {
+    "RainbowDelimiterRed",
+    "RainbowDelimiterYellow",
+    "RainbowDelimiterBlue",
+    "RainbowDelimiterOrange",
+    "RainbowDelimiterGreen",
+    "RainbowDelimiterViolet",
+    "RainbowDelimiterCyan",
 }
+
+
 return {
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        config = function()
-            require("ibl").setup {
-                scope = {
-                    highlight = highlight
-                }
-            }
-        end,
-        event = "VeryLazy",
-    },
     {
         "hiphish/rainbow-delimiters.nvim",
         config = function()
@@ -39,12 +39,22 @@ return {
             }
         end,
         event = "BufEnter",
+        cond = not vim.g.vscode
     },
     {
-        "folke/twilight.nvim",
-        cmd = { "Twilight", "TwilightEnable" },
-        keys = {
-            { "<leader>vt", "<cmd>Twilight<cr>", desc = "Twilight" },
-        },
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            local hooks = require "ibl.hooks"
+
+            require("ibl").setup { scope = { highlight = highlight } }
+
+            hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+        end,
+        event = "BufEnter",
+        cond = not vim.g.vscode
     },
+    {
+        'stevearc/dressing.nvim',
+        opts = {},
+    }
 }

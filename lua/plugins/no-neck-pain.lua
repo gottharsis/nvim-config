@@ -1,9 +1,10 @@
 return {
     {
-        "shortcuts/no-neck-pain.nvim",
-        version = "*",
+        'shortcuts/no-neck-pain.nvim',
+        cond = not vim.g.vscode,
+        version = '*',
         opts = {
-            width = 120,
+            width = 150,
             autocmds = {
                 enableOnVimEnter = true,
             },
@@ -16,9 +17,12 @@ return {
                     reopen = false,
                 }
             },
+            buffers = {
+                -- setNames = true,
+            }
         },
         keys = {
-            { "<leader>vn", "<cmd>NoNeckPain<cr>", desc = "No Neck Pain" },
+            { '<leader>vn', '<cmd>NoNeckPain<cr>', desc = 'No Neck Pain' },
         },
     },
 }

@@ -28,31 +28,30 @@ return {
             vim.cmd [[ autocmd ModeChanged * lua LeaveSnippet() ]]
         end,
         event = "VeryLazy",
+        cond = not vim.g.vscode,
     },
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
-            "onsails/lspkind-nvim",
             "L3MON4D3/LuaSnip",
             "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-omni",
-            -- "windwp/nvim-autopairs",
-
+            "windwp/nvim-autopairs",
         },
+        cond = not vim.g.vscode,
         config = function()
             local cmp = require 'cmp'
-            local lspkind = require('lspkind')
             local luasnip = require("luasnip")
 
             vim.cmd [[ set completeopt=menu,menuone,noselect ]]
 
 
 
-            -- local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+            local cmp_autopairs = require('nvim-autopairs.completion.cmp')
 
             local has_words_before = function()
                 unpack = unpack or table.unpack
@@ -138,15 +137,6 @@ return {
                     {
                         { name = 'buffer' },
                     }),
-                -- formatting = {
-                --     format = lspkind.cmp_format({
-                --         mode = "symbol",
-                --         maxwidth = 50,
-                --         symbol_map = {
-                --             Copilot = "",
-                --         }
-                --     })
-                -- },
                 window = {
                     completion = {
                         winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
@@ -154,21 +144,13 @@ return {
                         side_padding = 0,
                     },
                 },
-                formatting = {
-                    fields = { "kind", "abbr", "menu" },
-                    format = function(entry, vim_item)
-                        local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry,
-                            vim_item)
-                        local strings = vim.split(kind.kind, "%s", { trimempty = true })
-                        kind.kind = " " .. (strings[1] or "") .. " "
-                        kind.menu = "    (" .. (strings[2] or "") .. ")"
-
-                        return kind
-                    end,
-                },
                 performance = {
-                    throttle = 300,
+                    debounce = 200,
+                    max_view_entries = 15,
                 },
+                -- completion = {
+                --     keyword_length = 2,
+                -- }
             })
 
             -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
@@ -190,11 +172,11 @@ return {
             })
 
 
-            -- cmp.event:on(
-            --     'confirm_done',
-            --     cmp_autopairs.on_confirm_done()
-            -- )
+            cmp.event:on(
+                'confirm_done',
+                cmp_autopairs.on_confirm_done()
+            )
         end,
-        event = "VeryLazy",
+        event = { "CmdlineEnter", "InsertEnter" },
     }
 }

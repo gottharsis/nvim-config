@@ -1,6 +1,7 @@
 return {
     {
         "mrjones2014/smart-splits.nvim",
+        cond = not vim.g.vscode,
         keys = {
             { '<A-h>',         function() require('smart-splits').resize_left() end,      desc = "Resize left" },
             { '<A-j>',         function() require('smart-splits').resize_down() end,      desc = "Resize down" },

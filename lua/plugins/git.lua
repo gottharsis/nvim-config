@@ -2,6 +2,7 @@ return {
     {
         "lewis6991/gitsigns.nvim",
         event = "BufReadPost",
+        cond = not vim.g.vscode,
         keys = {
             { "]h",         "<cmd>Gitsigns next_hunk<cr>",                 desc = "Next hunk" },
             { "[h",         "<cmd>Gitsigns prev_hunk<cr>",                 desc = "Previous hunk" },
@@ -28,6 +29,7 @@ return {
     -- },
     {
         "sindrets/diffview.nvim",
+        cond = not vim.g.vscode,
         keys = {
             { "<leader>gD", "<cmd>DiffviewOpen<cr>", desc = "Show Diffview" },
         },
@@ -35,16 +37,20 @@ return {
     },
     {
         "NeogitOrg/neogit",
+        cond = not vim.g.vscode,
         dependencies = {
-            "nvim-lua/plenary.nvim",         -- required
-            "nvim-telescope/telescope.nvim", -- optional
-            "sindrets/diffview.nvim",        -- optional
+            "nvim-lua/plenary.nvim",  -- required
+            "sindrets/diffview.nvim", -- optional
         },
         opts = {
             mappings = {
                 status = {
                     ["<esc><esc><esc>"] = "Close",
                 },
+            },
+            console_timeout = 5000,
+            commit_editor = {
+                staged_diff_split_kind = "auto",
             },
         },
         keys = {

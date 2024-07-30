@@ -1,13 +1,8 @@
 return {
     {
         "kevinhwang91/nvim-bqf",
+        cond = not vim.g.vscode,
         dependencies = {
-            {
-                'junegunn/fzf',
-                build = function()
-                    vim.fn['fzf#install']()
-                end
-            },
             "nvim-treesitter/nvim-treesitter",
         },
         ft = "qf",
@@ -19,7 +14,8 @@ return {
     },
     {
         "gabrielpoca/replacer.nvim",
-        ft = "qf"
+        ft = "qf",
+        cond = not vim.g.vscode,
     }
 
 }

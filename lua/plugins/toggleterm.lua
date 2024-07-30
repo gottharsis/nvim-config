@@ -1,14 +1,12 @@
 return {
     {
         'akinsho/toggleterm.nvim',
+        cond = not vim.g.vscode,
         version = "*",
         event = "VeryLazy",
         opts = {
             open_mapping = [[<C-\>]],
+            direction = 'float'
         },
-        keys = {
-            { "<leader>tt", "<cmd>ToggleTerm<cr>",                    desc = "Open terminal" },
-            { "<leader>tl", "<cmd>ToggleTerm direction=vertical<cr>", desc = "Open terminal to side" }
-        }
     }
 }

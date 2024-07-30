@@ -1,12 +1,11 @@
 return {
-    { "wellle/targets.vim",    event = "BufReadPost", },
-    -- { "tpope/vim-commentary", lazy = false },
-    { "numToStr/Comment.nvim", config = true,         event = "BufReadPost" },
-    { "tpope/vim-surround",    event = "BufReadPost" },
+    -- { "wellle/targets.vim",    event = "BufReadPost", },
+    -- { "numToStr/Comment.nvim", config = true,         event = "BufReadPost", cond = not vim.g.vscode, },
+    { "tpope/vim-surround", event = "BufReadPost" },
 
     {
         "folke/flash.nvim",
-        event = "VeryLazy",
+        event = "BufReadPost",
         ---@type Flash.Config
         opts = {},
         -- stylua: ignore
@@ -44,13 +43,10 @@ return {
     },
     {
         "chaoren/vim-wordmotion",
-        event = "InsertEnter",
+        event = "BufReadPost",
         init = function()
             vim.g.wordmotion_prefix = "<localleader>"
         end
     },
-    {
-        "chrisgrieser/nvim-various-textobjs",
-        event = "VeryLazy"
-    }
+
 }

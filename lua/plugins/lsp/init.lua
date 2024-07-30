@@ -1,13 +1,17 @@
 return {
     {
         "neovim/nvim-lspconfig",
-        event = "VeryLazy",
-        dependencies = { "cmp-nvim-lsp", "ray-x/lsp_signature.nvim", "nvim-telescope/telescope.nvim",
+        event = "BufReadPost",
+        dependencies = { "cmp-nvim-lsp", "ray-x/lsp_signature.nvim",
             "folke/trouble.nvim", "SmiteshP/nvim-navic", "mason-lspconfig.nvim" },
-        config = function()
+       cond = not vim.g.vscode,
+       config = function()
             local on_attach = require("plugins/lsp/on_attach").on_attach
             local servers = require("plugins/lsp/servers")
             local lspconfig = require("lspconfig")
+
+
+            vim.lsp.inlay_hint.enable(true)
 
 
             for server, config in pairs(servers) do
@@ -42,6 +46,7 @@ return {
     },
     {
         "j-hui/fidget.nvim",
+        cond = not vim.g.vscode,
         tag = "legacy",
         event = "LspAttach",
         config = function()
@@ -49,22 +54,9 @@ return {
         end
     },
     {
-        "simrat39/symbols-outline.nvim",
-        config = true,
-        opts = {
-            auto_close = true,
-            position = 'left',
-            lsp_blacklist = { "null-ls" },
-        },
-        cmd = { "SymbolsOutline" },
-        keys = {
-            { "<leader>o", ":SymbolsOutline<cr>", desc = "Toggle Symbols Outline" },
-        },
-
-    },
-    {
         "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
+        lazy = true,
+        cond = not vim.g.vscode,
         config = function()
             require("lsp_signature").setup({
                 bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -74,10 +66,10 @@ return {
             })
         end
     },
-    { "folke/neodev.nvim", opts = {}, ft = "lua" },
     -- { "RRethy/vim-illuminate", event = "VeryLazy" },
     {
         "SmiteshP/nvim-navic",
+        cond = not vim.g.vscode,
         opts = {
             icons = {
                 File = ' ',

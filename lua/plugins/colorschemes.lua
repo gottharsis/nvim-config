@@ -2,11 +2,11 @@ return {
     {
         -- current theme
         "projekt0n/github-nvim-theme",
-        lazy = true,
+        cond = not vim.g.vscode,
     },
     {
         "Shatur/neovim-ayu",
-        lazy = false,
+        cond = not vim.g.vscode,
         config = function()
             local colors = require('ayu.colors')
             colors.generate(true)
@@ -25,62 +25,43 @@ return {
         end
     },
     {
+        cond = not vim.g.vscode,
         "LunarVim/horizon.nvim",
-        lazy = true,
     },
     {
+        cond = not vim.g.vscode,
         "sainnhe/sonokai",
-        lazy = true,
     },
     {
+        cond = not vim.g.vscode,
         "catppuccin/nvim",
         name = "catppuccin",
-        lazy = true,
     },
     {
+        cond = not vim.g.vscode,
         "EdenEast/nightfox.nvim",
-        lazy = true,
-    },
-    {
-        "bbenzikry/snazzybuddy.nvim",
-        dependencies = { "tjdevries/colorbuddy.nvim" },
-        lazy = true,
         config = function()
-            local Color, colors, Group, groups, styles = require('colorbuddy').setup()
+            require("nightfox").setup(
+                {
+                    groups = {
+                        all = {
+                            RainbowDelimiterRed    = { fg = "palette.red" },
+                            RainbowDelimiterBlue   = { fg = "palette.blue" },
+                            RainbowDelimiterCyan   = { fg = "palette.cyan" },
+                            RainbowDelimiterGreen  = { fg = "palette.green" },
+                            RainbowDelimiterOrange = { fg = "palette.orange" },
+                            RainbowDelimiterViolet = { fg = "palette.magenta" },
 
-            vim.g.snazzybuddy_icons = true
+                        }
+                    }
+                }
 
-            -- Add SnazzyIndent1 - SnazzyIndent7
-            -- local indent_colors = {}
-            -- for i = 1, 7 do
-            --     table.insert(indent_colors, 'SnazzyIndent' .. i)
-            -- end
-
-            -- vim.g.indent_blankline_char_highlight_list = indent_colors
-
-            -- better bufferline stuff
-            local bg_dark = "#22242e"
-
-            Color.new('bg_dark', bg_dark)
-            -- Group.new("BufferLineSeparator", colors.bg_dark, colors.bg_dark)
-            Group.new("BufferLineIndicatorSelected", colors.green)
-            Group.new("BufferLineFill", colors.bg_dark, colors.bg_dark)
-            -- Group.new("BufferLineSeparator", colors.white, colors.bg_dark)
-            -- Group.new("BufferLineSeparatorSelected", colors.bg, colors.bg_dark)
-
-            -- Support for rainbow delimiters
-            Group.new("RainbowDelimiterRed", colors.red)
-            Group.new("RainbowDelimiterBlue", colors.blue)
-            Group.new("RainbowDelimiterCyan", colors.cyan)
-            Group.new("RainbowDelimiterGreen", colors.green)
-            Group.new("RainbowDelimiterOrange", colors.orange)
-            Group.new("RainbowDelimiterYellow", colors.yellow)
-            Group.new("RainbowDelimiterViolet", colors.purple)
+            )
         end
     },
     {
+        cond = not vim.g.vscode,
         "rebelot/kanagawa.nvim",
-        lazy = true,
         opts = {
             colors = {
                 theme = {
@@ -90,20 +71,53 @@ return {
                         }
                     }
                 }
-            }
+            },
+            overrides = function(colors)
+                return {
+                    RainbowDelimiterRed = { fg = colors.palette.autumnRed },
+                    RainbowDelimiterYellow = { fg = colors.palette.carpYellow },
+                    RainbowDelimiterBlue = { fg = colors.palette.dragonBlue },
+                    RainbowDelimiterOrange = { fg = colors.palette.surimiOrange },
+                    RainbowDelimiterGreen = { fg = colors.palette.springGreen },
+                    RainbowDelimiterViolet = { fg = colors.palette.oniViolet },
+                    RainbowDelimiterCyan = { fg = colors.palette.waveAqua1 },
+                }
+            end
         },
         config = true
     },
     {
+        cond = not vim.g.vscode,
         "folke/tokyonight.nvim",
         priority = 1000,
     },
     {
-        "cpea2506/one_monokai.nvim",
-        lazy = true
+        "AlexvZyl/nordic.nvim",
+        cond = not vim.g.vscode,
+        config = function()
+            local palette = require('nordic.colors')
+            require('nordic').setup {
+                override = {
+                    RainbowDelimiterRed = { fg = palette.red.base },
+                    RainbowDelimiterBlue = { fg = palette.blue1 },
+                    RainbowDelimiterCyan = { fg = palette.cyan.base },
+                    RainbowDelimiterGreen = { fg = palette.green.base },
+                    RainbowDelimiterOrange = { fg = palette.orange.base },
+                    RainbowDelimiterYellow = { fg = palette.yellow.base },
+
+                    TablineSel = { bg = palette.blue0 },
+                }
+            }
+        end
     },
+    { "olimorris/onedarkpro.nvim", cond = not vim.g.vscode, },
+    { "sainnhe/edge",              cond = not vim.g.vscode },
     {
-        "olimorris/onedarkpro.nvim",
-        lazy = true,
-    }
+        "scottmckendry/cyberdream.nvim",
+        cond = not vim.g.vscode,
+        opts = {
+            -- transparent = true,
+            italic_comments = true,
+        },
+    },
 }
