@@ -13,9 +13,6 @@ return {
             isort = {
                 prepend_args = { "--profile", "black", },
             },
-            clang_format = function()
-                require("conform.util").find_executable({ "bde-format-11" }, "clang-format")
-            end
         },
         formatters_by_ft = {
             cpp = { "clang_format" },
