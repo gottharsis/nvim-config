@@ -104,11 +104,13 @@ return {
                     RainbowDelimiterGreen = { fg = palette.green.base },
                     RainbowDelimiterOrange = { fg = palette.orange.base },
                     RainbowDelimiterYellow = { fg = palette.yellow.base },
+                    RainbowDelimiterViolet = { fg = palette.magenta.base },
 
                     TablineSel = { bg = palette.blue0 },
                 }
             }
-        end
+        end,
+        priority = 1000
     },
     { "olimorris/onedarkpro.nvim", cond = not vim.g.vscode, },
     { "sainnhe/edge",              cond = not vim.g.vscode },

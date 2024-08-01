@@ -1,5 +1,4 @@
 return {
     { import = "plugins" },
-    require("language-plugins")({"cpp"}),
+    { import = "language_plugins.language.cpp" },
 }
-

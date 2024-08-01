@@ -39,7 +39,7 @@ return {
             }
         end,
         event = "BufEnter",
-        cond = not vim.g.vscode
+        cond = not vim.g.vscode,
     },
     {
         "lukas-reineke/indent-blankline.nvim",
@@ -51,7 +51,7 @@ return {
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
         end,
         event = "BufEnter",
-        cond = not vim.g.vscode
+        cond = not vim.g.vscode,
     },
     {
         'stevearc/dressing.nvim',
