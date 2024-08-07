@@ -46,6 +46,9 @@ vsmap("<C-l>", "workbench.action.focusRightGroup")
 vsmap("<C-b>", "workbench.action.toggleSidebarVisibility")
 vsmap("<C-j>", "workbench.action.togglePanel")
 
+vsmap("<leader><space>", "workbench.action.quickOpen")
+vsmap("<leader>/", "workbench.action.search")
+
 vim.cmd [[
   set smartcase ignorecase
 ]]

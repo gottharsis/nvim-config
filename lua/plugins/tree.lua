@@ -11,7 +11,15 @@ return {
             },
         },
         keys = {
-            { "<leader>f", function() require("mini.files").open() end, desc = "Open mini.files" }
+            { "<leader>F", function() require("mini.files").open() end, desc = "Open mini.files at root" },
+            {
+                "<leader>f",
+                function()
+                    require("mini.files").open(vim.api.nvim_buf_get_name(0))
+                    require("mini.files").reveal_cwd()
+                end,
+                desc = "Open mini.files at current file"
+            },
         }
     },
 
