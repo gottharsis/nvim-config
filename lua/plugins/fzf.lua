@@ -9,8 +9,10 @@ return {
         end,
         lazy = false,
         keys = {
-            { "<leader><space>", function() require("fzf-lua").files() end,     desc = "File Explorer" },
-            { "<leader>/",       function() require("fzf-lua").live_grep() end, desc = "Grep" },
+            { "<leader><space>", function() require("fzf-lua").files() end,          desc = "File Explorer" },
+            { "<leader>/",       function() require("fzf-lua").live_grep_glob() end, desc = "Grep" },
+            { "<leader>*",       function() require("fzf-lua").grep_cword() end,     desc = "Grep word under cursor" },
+            { "<leader>*",       function() require("fzf-lua").grep_visual() end,    desc = "Grep selection",      mode = { "v" } },
         }
     }
 }
