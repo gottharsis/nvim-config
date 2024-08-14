@@ -8,6 +8,7 @@ return {
             require("fzf-lua").setup({})
         end,
         lazy = false,
+        cond = not vim.g.vscode,
         keys = {
             { "<leader><space>", function() require("fzf-lua").files() end,          desc = "File Explorer" },
             { "<leader>/",       function() require("fzf-lua").live_grep_glob() end, desc = "Grep" },

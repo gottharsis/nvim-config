@@ -2,6 +2,7 @@ return {
     {
         'echasnovski/mini.files',
         version = false,
+        cond = not vim.g.vscode,
         opts = {
             mappings = {
                 go_in = 'L',

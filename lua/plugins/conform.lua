@@ -20,8 +20,17 @@ return {
             typescript = { "prettier" },
             javascript = { "prettier" },
             go = { "goimports", "gofmt" },
-            json = { { "prettier", "jq" } },
-            python = { "black", "isort" }
+            json = { "prettier", "jq", stop_after_first = true },
+            python = function(bufnr)
+                -- prefer ruff over black+isort
+                local conform = require("conform")
+                if conform.get_formatter_info("ruff_format", bufnr).available then
+                    return { "ruff_format", "ruff_organize_imports" }
+                else
+                    return { "black", "isort" }
+                end
+            end,
+
         }
     },
     config = function(_, opts)

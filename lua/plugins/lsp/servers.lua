@@ -1,8 +1,18 @@
 local servers = {
-  pyright       = {},
-  -- pylyzer       = {},
-  -- jedi_language_server = {},
-  -- pylsp         = {},
+  -- pyright       = {},
+  basedpyright  = {
+    settings = {
+      basedpyright = {
+        analysis = {
+          diagnosticSeverityOverrides = {
+            reportMissingTypeStubs = false,
+            reportMissingParameterType = "warning",
+            reportAny = "warning",
+          }
+        }
+      }
+    }
+  },
   tsserver      = {},
   gopls         = {},
   clojure_lsp   = {},

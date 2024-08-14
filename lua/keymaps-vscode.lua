@@ -47,7 +47,14 @@ vsmap("<C-b>", "workbench.action.toggleSidebarVisibility")
 vsmap("<C-j>", "workbench.action.togglePanel")
 
 vsmap("<leader><space>", "workbench.action.quickOpen")
-vsmap("<leader>/", "workbench.action.search")
+vsmap("<leader>/", "workbench.action.findInFiles")
+vsmap("<leader>vn", "workbench.action.toggleCenteredLayout")
+
+vsmap("<M-o>", "editor.action.smartSelect.expand", { mode = { "n", "v", "x" } })
+vsmap("<M-i>", "editor.action.smartSelect.shrink", { mode = { "n", "v", "x" } })
+
+vsmap("<leader>f", "workbench.view.explorer")
+
 
 vim.cmd [[
   set smartcase ignorecase

@@ -16,7 +16,19 @@ vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { desc = "Previous QuickFix Item
 vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { desc = "Next QuickFix Item" })
 
 
-vim.keymap.set("n", "<leader>d", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+
+vim.keymap.set("n", "<leader>Et", function()
+  vim.ui.select({ "NONE", "ALL", "ERROR", "WARN" }, { prompt = "Severity for virtual text" }, function(item)
+    if item == "NONE" then
+      vim.diagnostic.config({ virtual_text = false })
+    elseif item == "ALL" then
+      vim.diagnostic.config({ virtual_text = true })
+    else
+      vim.diagnostic.config({ virtual_text = { severity = item } })
+    end
+  end)
+end, { desc = "Set severity of virtual text" })
 
 
 local gotofile = function()
