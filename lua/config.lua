@@ -5,7 +5,7 @@ vim.opt.termguicolors = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.o.signcolumn = "auto:2-4"
+vim.o.signcolumn = "yes:3"
 vim.o.number = true
 
 
@@ -63,4 +63,3 @@ if (not vim.g.vscode) and (vim.env.WSL_DISTRO_NAME ~= nil) then
     }
     vim.g.netrw_browsex_viewer = "cmd.exe /C start"
 end
-

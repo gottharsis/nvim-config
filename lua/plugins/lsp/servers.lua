@@ -7,7 +7,12 @@ local servers = {
           diagnosticSeverityOverrides = {
             reportMissingTypeStubs = false,
             reportMissingParameterType = "warning",
-            reportAny = "warning",
+            reportAny = "information",
+            reportUnknownVariableType = "warning",
+            reportUnknownArgumentType = "warning",
+            reportUnknownParameterType = "warning",
+            reportUnknownMemberType = "warning",
+            reportUnusedCallResult = false,
           }
         }
       }
@@ -54,7 +59,7 @@ local servers = {
     }
   },
   ocamllsp      = {},
-  lemminx       = {},
+  -- lemminx       = {},
 }
 
 return servers

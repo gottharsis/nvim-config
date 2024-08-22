@@ -31,6 +31,10 @@ return {
     {
         cond = not vim.g.vscode,
         "sainnhe/sonokai",
+        config = function()
+            vim.g.sonokai_style = 'maia'
+            vim.g.sonokai_better_performance = true
+        end
     },
     {
         cond = not vim.g.vscode,
