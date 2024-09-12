@@ -7,7 +7,7 @@ return {
             if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
                 return
             end
-            return { timeout_ms = 500, lsp_fallback = true }
+            return { timeout_ms = 500, lsp_formt = "fallback" }
         end,
         formatters = {
             isort = {
@@ -27,7 +27,7 @@ return {
                 if conform.get_formatter_info("ruff_format", bufnr).available then
                     return { "ruff_format", "ruff_organize_imports" }
                 else
-                    return { "black", "isort" }
+                    return { "isort", "black", }
                 end
             end,
 
