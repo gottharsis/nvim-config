@@ -17,6 +17,7 @@ return {
             { "gr",              function() require("fzf-lua").lsp_references() end,             desc = "LSP References" },
             { "<leader>r",       function() require("fzf-lua").resume() end,                     desc = "Resume" },
             { "<leader>S",       function() require("fzf-lua").lsp_live_workspace_symbols() end, desc = "Workspace symbols" },
+            { "<leader>K",       function() require("fzf-lua").colorschemes() end,               desc = "Colorschemes" },
         }
     }
 }
