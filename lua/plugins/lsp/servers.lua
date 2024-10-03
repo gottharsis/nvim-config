@@ -18,7 +18,7 @@ local servers = {
       }
     }
   },
-  tsserver      = {},
+  ts_ls      = {},
   gopls         = {},
   clojure_lsp   = {},
   clangd        = {
