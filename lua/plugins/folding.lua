@@ -21,13 +21,10 @@ return {
             vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith)
 
             require('ufo').setup({
-                require('ufo').setup({
-                    provider_selector = function(bufnr, _, _)
-                        return { 'treesitter', 'indent' }
-                    end
-                })
+                provider_selector = function(bufnr, _, _)
+                    return { 'treesitter', 'indent' }
+                end
             })
         end,
-        event = "BufReadPost",
     }
 }

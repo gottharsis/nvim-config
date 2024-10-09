@@ -10,8 +10,8 @@ return {
             luasnip.config.set_config({
                 history = false,
             })
-            require("luasnip/loaders/from_vscode").lazy_load()
-
+            require("luasnip.loaders.from_vscode").lazy_load()
+            require("luasnip.loaders.from_snipmate").lazy_load({ paths = "./snippets" })
 
             -- -- Exit snippet when going back to insert mode
             function LeaveSnippet()
@@ -29,6 +29,9 @@ return {
         end,
         event = "VeryLazy",
         cond = not vim.g.vscode,
+        keys = {
+            { "<C-y>", function() require("luasnip").expand() end, mode = "i", desc = "Expand snippet" }
+        }
     },
     {
         "hrsh7th/nvim-cmp",
@@ -88,8 +91,8 @@ return {
                             local entry = cmp.get_selected_entry()
                             if not entry then
                                 -- cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                                if luasnip.expand_or_locally_jumpable() then
-                                    luasnip.expand_or_jump()
+                                if luasnip.locally_jumpable(1) then
+                                    luasnip.jump(1)
                                 else
                                     cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
                                 end
@@ -99,10 +102,8 @@ return {
 
                             -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
                             -- they way you will only jump inside the snippet region
-                        elseif luasnip.expand_or_locally_jumpable() then
-                            luasnip.expand_or_jump()
-                        elseif has_words_before() then
-                            cmp.complete()
+                        elseif luasnip.locally_jumpable(1) then
+                            luasnip.jump(1)
                         else
                             fallback()
                         end
