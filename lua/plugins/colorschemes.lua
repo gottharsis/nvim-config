@@ -20,7 +20,9 @@ return {
                     RainbowDelimiterGreen  = { fg = colors.vcs_added },
                     RainbowDelimiterOrange = { fg = colors.func },
                     RainbowDelimiterViolet = { fg = colors.constant },
-                }
+                    LspInlayHint = { fg = colors.comment },
+                },
+
             }
         end
     },
