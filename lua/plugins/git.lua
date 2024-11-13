@@ -54,8 +54,8 @@ return {
             },
         },
         keys = {
-            { "<leader>gg", "<cmd>Neogit kind=split<cr> cwd=%:p:h", desc = "Status" },
-            { "<leader>gt", "<cmd>Neogit kind=tab<cr> cwd=%:p:h",   desc = "Status (new tab)" }
+            { "<leader>gg", "<cmd>Neogit kind=split cwd=%:p:h <cr>", desc = "Status" },
+            { "<leader>gt", "<cmd>Neogit kind=tab cwd=%:p:h <cr>",   desc = "Status (new tab)" }
         },
         cmd = { "Neogit" },
     },
