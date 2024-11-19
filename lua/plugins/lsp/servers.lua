@@ -22,7 +22,7 @@ local servers = {
   gopls         = {},
   clojure_lsp   = {},
   clangd        = {
-    cmd = { "clangd", "--fallback-style='Google'" }
+    cmd = { "clangd", "--clang-tidy", "-j=4" }
   },
   -- ccls = {},
   rust_analyzer = {},
