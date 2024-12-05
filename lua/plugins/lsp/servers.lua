@@ -25,7 +25,16 @@ local servers = {
     cmd = { "clangd", "--clang-tidy", "-j=4" }
   },
   -- ccls = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    settings = {
+      ["rust-analyzer"] = {
+        -- enable clippy
+        checkOnSave = {
+          command = "clippy",
+        }
+      }
+    }
+  },
   emmet_ls      = {
     autostart = false,
     filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'xsd' },
