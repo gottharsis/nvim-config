@@ -1,3 +1,24 @@
+local get_git_root = function ()
+    local path = vim.api.nvim_buf_get_name(0)
+    if path == '' then return nil end
+    path = vim.fs.dirname(path)
+
+    local root_file = vim.fs.find(".git", { path = path, upward = true })[1]
+    if root_file == nil then return nil end
+    return vim.fs.dirname(root_file)
+end
+
+local open_neogit_at_git_root = function(opts) 
+    if opts == nil then opts = {} end
+    local neogit = require("neogit")
+    local root = get_git_root()
+
+    if root ~= nil then
+        opts["cwd"] = root
+    end
+    neogit.open(opts)
+end
+
 return {
     {
         "lewis6991/gitsigns.nvim",
@@ -54,8 +75,8 @@ return {
             },
         },
         keys = {
-            { "<leader>gg", "<cmd>Neogit kind=split cwd=%:p:h <cr>", desc = "Status" },
-            { "<leader>gt", "<cmd>Neogit kind=tab cwd=%:p:h <cr>",   desc = "Status (new tab)" }
+            { "<leader>gg", open_neogit_at_git_root, desc = "Status" },
+            { "<leader>gt",function () open_neogit_at_git_root({ kind ="tab" }) end,   desc = "Status (new tab)" }
         },
         cmd = { "Neogit" },
     },
