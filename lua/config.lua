@@ -45,7 +45,7 @@ if jit.os == "Windows" then
 end
 
 if not vim.g.vscode then
-    vim.cmd [[ colorscheme nordic ]]
+    vim.cmd [[ colorscheme catppuccin-mocha ]]
 end
 
 if (not vim.g.vscode) and (vim.env.WSL_DISTRO_NAME ~= nil) then
