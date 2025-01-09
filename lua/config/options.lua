@@ -60,4 +60,4 @@ end
 
 vim.cmd [[ colorscheme catppuccin-mocha ]]
 
-vim.opt.foldlevel=99
+vim.opt.foldlevel = 99

@@ -2,6 +2,7 @@ return {
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
     {
         "Shatur/neovim-ayu",
+        lazy = true,
         config = function()
             local colors = require('ayu.colors')
             colors.generate(true)
@@ -21,5 +22,5 @@ return {
             }
         end
     },
-    { "folke/tokyonight.nvim" },
+    { "folke/tokyonight.nvim", lazy = true, },
 }

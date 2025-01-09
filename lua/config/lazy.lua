@@ -21,14 +21,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
-local spec = {
-  { import = "global_plugins" } 
-}
-
-if not vim.g.vscode then 
-  table.insert(spec, { import = "ide_plugins" })
-end
-
+local spec = require("config.lazy_spec")
 
 -- Setup lazy.nvim
 require("lazy").setup({
