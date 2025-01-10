@@ -35,7 +35,7 @@ return {
                     vim.keymap.set("t", "<esc>", [[<esc><C-\><C-n>]], { buffer = true, noremap = true })
                     vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
                     vim.keymap.set('t', '<C-h>', '<C-o><C-h>', { buffer = true, noremap = true })
-                    vim.keymap.set('t', '<C-U>', edit_current_line, { buffer = true, noremap = true })
+                    -- vim.keymap.set('t', '<C-U>', edit_current_line, { buffer = true, noremap = true })
                 end,
                 group = group
             })
