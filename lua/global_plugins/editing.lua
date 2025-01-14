@@ -1,5 +1,5 @@
 return {
-    { "kylechui/nvim-surround" },
+    { "kylechui/nvim-surround", config = true },
     {
         "chaoren/vim-wordmotion",
         init = function()
