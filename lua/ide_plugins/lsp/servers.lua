@@ -89,6 +89,7 @@ local servers = {
         }
     },
     ocamllsp      = {},
+    marksman = {},
     -- lemminx       = {},
 }
 
