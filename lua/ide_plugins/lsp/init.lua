@@ -2,6 +2,7 @@ local servers = require("ide_plugins.lsp.servers")
 local keymaps = require("ide_plugins.lsp.keymaps")
 
 return {
+    { 'p00f/clangd_extensions.nvim', lazy=true, },
     {
         'neovim/nvim-lspconfig',
         dependencies = { 'saghen/blink.cmp' },

@@ -42,7 +42,7 @@ local servers = {
                 end
             end, { buffer = buf, desc = "[l]sp [h]ints toggle" })
 
-            vim.keymap.set("n", "<leader>H", "<cmd>ClangdSwitchSourceHeader<cr>", { desc = "switch source/header" })
+            vim.keymap.set("n", "<leader>H", "<cmd>ClangdSwitchSourceHeader<cr>", { desc = "switch source/header", buffer=true })
         end
     },
     -- ccls = {},
