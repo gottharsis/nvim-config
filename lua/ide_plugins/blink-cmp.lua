@@ -2,7 +2,7 @@ return {
     {
         'saghen/blink.cmp',
         -- optional: provides snippets for the snippet source
-        dependencies = 'rafamadriz/friendly-snippets',
+        dependencies = {'rafamadriz/friendly-snippets', 'L3MON4D3/LuaSnip'},
 
         -- use a release tag to download pre-built binaries
         version = '*',
@@ -19,6 +19,7 @@ return {
             -- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
             -- See the full "keymap" documentation for information on defining your own keymap.
             keymap = { preset = 'super-tab' },
+            snippets = { preset = 'luasnip' },
 
             appearance = {
                 -- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -36,7 +37,10 @@ return {
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
             },
             signature = { enabled = true },
-            completion = { list = { selection = { preselect = function(ctx) return not require("blink.cmp").snippet_active({direction = 1}) end}} },
+            completion = { 
+                list = { selection = { preselect = function(ctx) return not require("blink.cmp").snippet_active({direction = 1}) end } },
+                trigger = { show_in_snippet = false },
+            }
         },
         opts_extend = { "sources.default" }
     }
