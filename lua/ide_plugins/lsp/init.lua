@@ -2,7 +2,6 @@ local servers = require("ide_plugins.lsp.servers")
 local keymaps = require("ide_plugins.lsp.keymaps")
 
 return {
-    { 'p00f/clangd_extensions.nvim', lazy=true, },
     {
         'neovim/nvim-lspconfig',
         dependencies = { 'saghen/blink.cmp' },
@@ -19,6 +18,8 @@ return {
                 config.capabilities.offsetEncoding = { 'utf-8' }
                 lspconfig[server].setup(config)
             end
+
+            vim.api.nvim_create_user_command("ToggleInlayHints", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({0}),{0}) end, {})
 
             -- set keymaps     
             vim.api.nvim_create_autocmd("LspAttach", {
