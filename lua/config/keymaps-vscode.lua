@@ -19,7 +19,7 @@ local async_mappings = {
     { "<M-i>", "editor.action.smartSelect.shrink", {mode = {"n", "v", "x"}} },
 
     -- lsp
-    { "gr", "editor.action.goToReferences"}
+    { "gr", "editor.action.goToReferences"},
 
     -- misc
     { "<leader>/", "workbench.action.findInFiles" },
@@ -34,6 +34,6 @@ for _, mapping in ipairs(async_mappings) do
 
     local rhs = function() vscode.action(vscode_cmd) end
 
-    local mode = opts.mode or {}
+    local mode = opts.mode or "n" 
     vim.keymap.set(mode, lhs, rhs)
 end

@@ -1,5 +1,6 @@
 vim.opt.termguicolors = true
 
+vim.o.exrc = true
 
 -- general options
 vim.o.splitright = true
