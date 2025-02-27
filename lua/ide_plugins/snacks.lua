@@ -8,7 +8,6 @@ return {
         input = { enabled = true },
         picker = { enabled = true },
         rename = { enabled = true },
-        scroll = { enabled = true,},
         words = { enabled = true, },
     },
 
