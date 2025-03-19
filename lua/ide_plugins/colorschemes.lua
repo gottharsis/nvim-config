@@ -1,5 +1,14 @@
 return {
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { 
+        "catppuccin/nvim", name = "catppuccin", priority = 1000,
+        opts = {
+            custom_highlights = function(colors)
+                return {
+                    FlashLabel = { bg = colors.red, fg=colors.crust, style = { "bold" } }
+                }
+            end,
+        }
+    },
     {
         "Shatur/neovim-ayu",
         lazy = true,
