@@ -9,3 +9,6 @@ vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { desc = "Next QuickFix Item" })
 
 vim.keymap.set("n", "<leader>xx", function() vim.diagnostic.setqflist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
 vim.keymap.set("n", "<leader>xw", function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
+
+
+vim.keymap.set("n", "<C-w>gd", "<cmd>vert wincmd ]<cr>", { desc = "Go to definition in vsplit" })
