@@ -6,7 +6,7 @@ vim.o.exrc = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 
-vim.o.signcolumn = "yes:3"
+vim.o.signcolumn = "yes:2"
 vim.o.number = true
 
 -- highlight on yank

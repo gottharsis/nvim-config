@@ -13,6 +13,8 @@ local servers = {
                         reportUnknownParameterType = "warning",
                         reportUnknownMemberType = "warning",
                         reportUnusedCallResult = false,
+                        strictDictionaryInference = false,
+                        reportExplicitAny = false,
                     }
                 }
             }
