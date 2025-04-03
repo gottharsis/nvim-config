@@ -16,7 +16,11 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.INFO] = 'DiagnosticSignInfo',
             [vim.diagnostic.severity.HINT] = 'DiagnosticSignHint',
         },
-    }
+    },
+    virtual_text = {
+        current_line = true,
+    },
+    
 })
 
 -- local function lspSymbol(name, icon)

@@ -69,7 +69,6 @@ function M.set_keymaps(client, bufnr)
     map("<F14>", vim.lsp.buf.rename, "rename")
     map("<F2>", M.replace_preview_qf, "rename with preview")
     map("grn", M.replace_preview_qf, "rename with preview")
-    map("gra", vim.lsp.buf.code_action, "Code action", { "n", "v" })
 
     map("gd", vim.lsp.buf.definition, "Goto definition")
 end
