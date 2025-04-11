@@ -7,8 +7,9 @@ vim.keymap.set("n", "<Esc>", "<cmd>noh<cr>", { desc = "Remove highlights from se
 -- vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { desc = "Previous QuickFix Item" })
 -- vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { desc = "Next QuickFix Item" })
 
-vim.keymap.set("n", "<leader>xx", function() vim.diagnostic.setqflist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
-vim.keymap.set("n", "<leader>xw", function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
+-- superseded by trouble.nvim
+-- vim.keymap.set("n", "<leader>xx", function() vim.diagnostic.setqflist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
+-- vim.keymap.set("n", "<leader>xw", function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
 
 
 vim.keymap.set("n", "<C-w>gd", "<cmd>vert wincmd ]<cr>", { desc = "Go to definition in vsplit" })
