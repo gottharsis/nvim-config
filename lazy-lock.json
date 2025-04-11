@@ -16,6 +16,7 @@
   "neogit": { "branch": "master", "commit": "a1fc4e50fa494e04097cf2d02e86bcd7ac5760d6" },
   "neotest": { "branch": "master", "commit": "dddbe8fe358b05b2b7e54fe4faab50563171a76d" },
   "neotest-gtest": { "branch": "main", "commit": "16989561a6356878ec4ecd6afed4f0d7a471d1db" },
+  "neotest-python": { "branch": "master", "commit": "a2861ab3c9a0bf75a56b11835c2bfc8270f5be7e" },
   "neovim-ayu": { "branch": "master", "commit": "283badaa983234c90e857c12c1f1c18e1544360a" },
   "no-neck-pain.nvim": { "branch": "main", "commit": "2a786bf7130cce20449885fb799f3c7f4ce93595" },
   "nvim-autopairs": { "branch": "master", "commit": "3d02855468f94bf435db41b661b58ec4f48a06b7" },

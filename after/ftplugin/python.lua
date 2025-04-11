@@ -29,3 +29,19 @@ vim.api.nvim_create_autocmd("InsertCharPre", {
         vim.api.nvim_input("<Esc>m'" .. row + 1 .. "gg" .. col + 1 .. "|if<Esc>`'la")
     end,
 })
+
+
+function set_python_path(path)
+    vim.g.python_path = path
+    if vim.fn.exists(':PyrightSetPythonPath') > 0 then
+        vim.cmd("PyrightSetPythonPath " .. path)
+    end
+end
+
+vim.api.nvim_buf_create_user_command(0, "SetPythonPath", function(ev) 
+    if ev.nargs == 1 then
+        set_python_path(ev.args)
+    else
+        vim.ui.input({ prompt= "PythonPath: " }, set_python_path)
+    end
+end, {})
