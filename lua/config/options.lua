@@ -59,6 +59,6 @@ if vim.env.WSL_DISTRO_NAME ~= nil then
     vim.g.netrw_browsex_viewer = "cmd.exe /C start"
 end
 
-vim.cmd [[ colorscheme catppuccin-mocha ]]
+vim.cmd [[ colorscheme evergarden ]]
 
 vim.opt.foldlevel = 99
