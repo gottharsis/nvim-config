@@ -28,9 +28,11 @@ return {
                     color = 'surface0',
                 },
             },
-            overrides = {
-                FlashLabel = { '#313B40', '#F3C0E5' }
-            }
+            overrides = function(colors) 
+                return {
+                    FlashLabel = { colors.mantle, colors.cherry }
+                }
+            end
         }
     },
     {
