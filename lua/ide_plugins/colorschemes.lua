@@ -10,32 +10,6 @@ return {
         }
     },
     {
-        'everviolet/nvim', name = 'evergarden',
-        priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
-        opts = {
-            theme = {
-                variant = 'fall', -- 'winter'|'fall'|'spring'|'summer'
-                accent = 'green',
-            },
-            editor = {
-                transparent_background = false,
-                sign = { color = 'none' },
-                float = {
-                    color = 'mantle',
-                    invert_border = false,
-                },
-                completion = {
-                    color = 'surface0',
-                },
-            },
-            overrides = function(colors) 
-                return {
-                    FlashLabel = { colors.mantle, colors.cherry }
-                }
-            end
-        }
-    },
-    {
         "Shatur/neovim-ayu",
         lazy = true,
         config = function()
@@ -58,4 +32,22 @@ return {
         end
     },
     { "folke/tokyonight.nvim", lazy = true, },
+    {"olimorris/onedarkpro.nvim", lazy = true},
+    { 
+        "rebelot/kanagawa.nvim", 
+
+        opts = {
+            overrides = function(colors) 
+                return {
+                    RainbowDelimiterRed    = { fg = colors.palette.peachRed },
+                    RainbowDelimiterBlue   = { fg = colors.palette.crystalBlue },
+                    RainbowDelimiterCyan   = { fg = colors.palette.waveAqua2 },
+                    RainbowDelimiterGreen  = { fg = colors.palette.springGreen },
+                    RainbowDelimiterOrange = { fg = colors.palette.roninYellow },
+                    RainbowDelimiterViolet = { fg = colors.palette.sakruaPink },
+                }
+            end
+        }, 
+    }
 }
+
