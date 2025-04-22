@@ -28,7 +28,7 @@ require("lazy").setup({
   spec = spec,
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "vim" } },
+  install = { colorscheme = { "default" } },
   -- automatically check for plugin updates
   checker = { enabled = false },
 })
