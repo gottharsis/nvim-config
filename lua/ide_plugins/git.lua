@@ -28,9 +28,9 @@ return {
             { "]h",         "<cmd>Gitsigns next_hunk<cr>",                 desc = "Next hunk" },
             { "[h",         "<cmd>Gitsigns prev_hunk<cr>",                 desc = "Previous hunk" },
             { "<leader>gB", "<cmd>Gitsigns toggle_current_line_blame<cr>", desc = "Toggle Blame" },
-            { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>",                desc = "Reset hunk" },
+            { "<leader>gr", "<cmd>Gitsigns reset_hunk<cr>",                desc = "Reset hunk", mode = {"n", "v", "x"}},
             { "<leader>gd", "<cmd>Gitsigns diffthis<cr>",                  desc = "Open diff" },
-            { "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>",                desc = "Stage Hunk" },
+            { "<leader>gs", "<cmd>Gitsigns stage_hunk<cr>",                desc = "Stage Hunk", mode={"n", "v", "x"} },
             { "<leader>gS", "<cmd>Gitsigns stage_buffer<cr>",              desc = "Stage Buffer" },
 
         },
