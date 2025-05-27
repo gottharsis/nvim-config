@@ -44,18 +44,18 @@ end
 
 
 if vim.env.WSL_DISTRO_NAME ~= nil then
-    vim.g.clipboard = {
-        name = "win32yank-wsl",
-        copy = {
-            ["+"] = "win32yank.exe -i --crlf",
-            ["*"] = "win32yank.exe -i --crlf"
-        },
-        paste = {
-            ["+"] = "win32yank.exe -o --crlf",
-            ["*"] = "win32yank.exe -o --crlf"
-        },
-        cache_enable = 0,
-    }
+    -- vim.g.clipboard = {
+    --     name = "win32yank-wsl",
+    --     copy = {
+    --         ["+"] = "win32yank.exe -i --crlf",
+    --         ["*"] = "win32yank.exe -i --crlf"
+    --     },
+    --     paste = {
+    --         ["+"] = "win32yank.exe -o --crlf",
+    --         ["*"] = "win32yank.exe -o --crlf"
+    --     },
+    --     cache_enable = 0,
+    -- }
     vim.g.netrw_browsex_viewer = "cmd.exe /C start"
 end
 
