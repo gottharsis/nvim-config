@@ -48,6 +48,9 @@ return {
                 }
             end
         }, 
+    },
+    {
+        "AlexvZyl/nordic.nvim"
     }
 }
 
