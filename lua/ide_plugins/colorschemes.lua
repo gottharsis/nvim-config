@@ -32,7 +32,6 @@ return {
         end
     },
     { "folke/tokyonight.nvim", lazy = true, },
-    {"olimorris/onedarkpro.nvim", lazy = true},
     { 
         "rebelot/kanagawa.nvim", 
 
@@ -51,6 +50,13 @@ return {
     },
     {
         "AlexvZyl/nordic.nvim"
-    }
+    },
+    { 
+        "sainnhe/sonokai",
+        config = function() 
+            vim.g.sonokai_style = 'shusia'
+            vim.g.sonokai_better_performance = 1
+        end
+    },
 }
 
