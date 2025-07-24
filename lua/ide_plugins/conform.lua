@@ -19,6 +19,7 @@ return {
             c = { "clang_format" },
             typescript = { "prettier" },
             javascript = { "prettier" },
+            typescriptreact = { "prettier" },
             go = { "goimports", "gofmt" },
             json = { "prettier", "jq", stop_after_first = true },
             python = function(bufnr)
