@@ -2,6 +2,7 @@ return {
     {
         'shortcuts/no-neck-pain.nvim',
         cond = not vim.g.vscode,
+        lazy = false,
         version = '*',
         opts = {
             width = 150,
