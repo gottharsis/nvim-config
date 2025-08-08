@@ -58,5 +58,8 @@ return {
             vim.g.sonokai_better_performance = 1
         end
     },
+    {
+        "sainnhe/everforest",
+    }
 }
 
