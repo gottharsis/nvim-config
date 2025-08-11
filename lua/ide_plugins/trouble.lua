@@ -1,7 +1,26 @@
 return {
     {
         "folke/trouble.nvim",
-        dependencies = { "ibhagwan/fzf-lua" },
+        specs = {
+            "folke/snacks.nvim",
+            opts = function(_, opts)
+                return vim.tbl_deep_extend("force", opts or {}, {
+                    picker = {
+                        actions = require("trouble.sources.snacks").actions,
+                        win = {
+                            input = {
+                                keys = {
+                                    ["<c-t>"] = {
+                                        "trouble_open",
+                                        mode = { "n", "i" },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                })
+            end,
+        },
         opts = {
             modes = {
                 neotest_errors = {
@@ -55,13 +74,5 @@ return {
                 desc = "Quickfix List (Trouble)",
             },
         },
-        config = function(_, opts) 
-            require("trouble").setup(opts)
-
-            -- enable send to trouble from fzf
-            local config = require("fzf-lua.config")
-            local actions = require("trouble.sources.fzf").actions
-            config.defaults.actions.files["ctrl-t"] = actions.open
-        end,
     }
 }
