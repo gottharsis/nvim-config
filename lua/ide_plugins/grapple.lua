@@ -10,8 +10,7 @@ return {
             quick_select = "123456789",
         },
         keys = {
-            { ";", "<cmd>Grapple toggle_tags<cr>", desc = "Toggle tags menu" },
-
+            { "gh", "<cmd>Grapple toggle_tags<cr>", desc = "Toggle tags menu" },
             { "<leader>m", "<cmd>Grapple toggle<cr>", desc = "Toggle tag" },
         },
     },
