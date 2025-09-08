@@ -1,6 +1,7 @@
 require("config.lazy")
 
 if vim.g.vscode then
+    require("config.options-vscode")    
     require("config.keymaps-vscode")    
 else
     require("config.options")
