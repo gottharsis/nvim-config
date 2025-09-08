@@ -60,5 +60,6 @@ end
 
 vim.keymap.set("n", "j", "gj", {remap = true})
 vim.keymap.set("n", "k", "gk", {remap = true})
+vim.keymap.set("n", "<Esc>", "<cmd>noh<cr>", { desc = "Remove highlights from search" })
 
 -- find in files
