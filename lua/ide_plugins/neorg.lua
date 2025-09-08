@@ -10,6 +10,7 @@ return {
                     }
                 },
                 ["core.concealer"] = {},
+                ["core.journal"] = {}
             }
         }
 
