@@ -22,6 +22,8 @@ return {
             typescriptreact = { "prettier" },
             go = { "goimports", "gofmt" },
             json = { "prettier", "jq", stop_after_first = true },
+            json5 = { "prettier", "jq", stop_after_first = true },
+            jsonc = { "prettier", "jq", stop_after_first = true },
             python = function(bufnr)
                 -- prefer ruff over black+isort
                 local conform = require("conform")
