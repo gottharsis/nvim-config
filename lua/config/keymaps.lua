@@ -27,9 +27,12 @@ local function replace_preview_qf()
     local params = vim.lsp.util.make_position_params()
     vim.ui.input({ 
         prompt = "Rename `" .. current_name .. "` > ",
-        defaut = current_name,
+        default = current_name,
     }, 
         function(new_name)
+            if new_name == "" or new_name == nil then 
+                return
+            end
 
             params.newName = new_name
             vim.lsp.buf_request_all(0, "textDocument/rename", params, function(result_map, ctx)
