@@ -3,6 +3,7 @@ return {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
         event = "BufEnter",
+        branch = 'master',
         config = function()
             require'nvim-treesitter.config'.setup {
                 -- A list of parser names, or "all" (the listed parsers MUST always be installed)
