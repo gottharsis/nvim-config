@@ -29,10 +29,10 @@ return {
             set({"n", "x"}, "<c-q>", mc.toggleCursor, { desc = "MC: toggle" })
 
              -- match new cursors within visual selections by regex.
-            set("x", "<localleader>M", mc.matchCursors, { desc = "MC: Add cursors at match" })
+            set("x", "<localleader>m", mc.matchCursors, { desc = "MC: Add cursors at match" })
 
             -- Split visual selections by regex.
-            -- set("x", "S", mc.splitCursors, { desc = "MC: Split selection by regex" })
+            set("x", "<localleader>M", mc.splitCursors, { desc = "MC: Split selection by regex" })
 
             -- Mappings defined in a keymap layer only apply when there are
             -- multiple cursors. This lets you have overlapping mappings.
