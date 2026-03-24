@@ -7,9 +7,8 @@ vim.keymap.set("n", "]t", "<cmd>tabn<cr>", { desc = "Next tab" })
 vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { desc = "Previous QuickFix Item" })
 vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { desc = "Next QuickFix Item" })
 
--- superseded by trouble.nvim
 vim.keymap.set("n", "<leader>xx", function() vim.diagnostic.setqflist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
-vim.keymap.set("n", "<leader>xw", function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
+vim.keymap.set("n", "<leader>xw", function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Set file diagnostics in loclist" })
 
 
 vim.keymap.set("n", "<C-w>gd", "<cmd>vert wincmd ]<cr>", { desc = "Go to definition in vsplit" })
@@ -100,10 +99,6 @@ vim.keymap.set("x", "g/", function()
   vim.fn.feedkeys("/\\%V", "n")
 end, { silent = false })
 
-local wk = require("which-key")
-wk.add({
-  {  "<leader>q", group="QuickFix" }
-})
 vim.keymap.set("n", "<leader>qx", "<cmd> cexpr[]<cr>", { desc = "Clear QuickFix"})
 
 vim.keymap.set("n", "<leader>qa", function()
