@@ -8,8 +8,8 @@ vim.keymap.set("n", "[q", "<cmd>cprevious<cr>", { desc = "Previous QuickFix Item
 vim.keymap.set("n", "]q", "<cmd>cnext<cr>", { desc = "Next QuickFix Item" })
 
 -- superseded by trouble.nvim
--- vim.keymap.set("n", "<leader>xx", function() vim.diagnostic.setqflist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
--- vim.keymap.set("n", "<leader>xw", function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
+vim.keymap.set("n", "<leader>xx", function() vim.diagnostic.setqflist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
+vim.keymap.set("n", "<leader>xw", function() vim.diagnostic.setloclist({ open = true }) end, { desc = "Set diagnostics in quickfix" })
 
 
 vim.keymap.set("n", "<C-w>gd", "<cmd>vert wincmd ]<cr>", { desc = "Go to definition in vsplit" })
@@ -18,70 +18,70 @@ vim.keymap.set("n", "<C-w>gd", "<cmd>vert wincmd ]<cr>", { desc = "Go to definit
 
 -- lsp keybindings
 local map = function(lhs, rhs, desc, mode)
-    mode = mode or "n"
-    vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+  mode = mode or "n"
+  vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
 end
 
 local function replace_preview_qf()
-    local current_name = vim.fn.expand("<cword>")
-    local params = vim.lsp.util.make_position_params()
-    vim.ui.input({ 
-        prompt = "Rename `" .. current_name .. "` > ",
-        default = current_name,
-    }, 
-        function(new_name)
-            if new_name == "" or new_name == nil then 
-                return
+  local current_name = vim.fn.expand("<cword>")
+  local params = vim.lsp.util.make_position_params()
+  vim.ui.input({ 
+    prompt = "Rename `" .. current_name .. "` > ",
+    default = current_name,
+  }, 
+    function(new_name)
+      if new_name == "" or new_name == nil then 
+        return
+      end
+
+      params.newName = new_name
+      vim.lsp.buf_request_all(0, "textDocument/rename", params, function(result_map, ctx)
+        local qfitems = {}
+        local all_files = {}
+        local file_count = 0;
+        for client_id, results in pairs(result_map) do
+          vim.lsp.handlers["textDocument/rename"](results.error, results.result,
+            { method = "textDocument/rename", client_id = client_id, bufnr = 0, ctx = ctx, })
+          if results.result then
+            local rename_result = results.result
+            local changes = {}
+            if rename_result.documentChanges then
+              for text_document_edit in rename_result.documentChanges do
+                local uri = text_document_edit.textDocument.uri
+                changes[uri] = text_document_edit.edits
+              end
+            elseif rename_result.changes then
+              changes = rename_result.changes
             end
+            for uri, edits in pairs(changes) do
+              if not all_files[uri] then
+                all_files[uri] = true
+                file_count = file_count + 1
+              end
+              local bufnr = vim.uri_to_bufnr(uri)
 
-            params.newName = new_name
-            vim.lsp.buf_request_all(0, "textDocument/rename", params, function(result_map, ctx)
-                local qfitems = {}
-                local all_files = {}
-                local file_count = 0;
-                for client_id, results in pairs(result_map) do
-                    vim.lsp.handlers["textDocument/rename"](results.error, results.result,
-                        { method = "textDocument/rename", client_id = client_id, bufnr = 0, ctx = ctx, })
-                    if results.result then
-                        local rename_result = results.result
-                        local changes = {}
-                        if rename_result.documentChanges then
-                            for text_document_edit in rename_result.documentChanges do
-                                local uri = text_document_edit.textDocument.uri
-                                changes[uri] = text_document_edit.edits
-                            end
-                        elseif rename_result.changes then
-                            changes = rename_result.changes
-                        end
-                        for uri, edits in pairs(changes) do
-                            if not all_files[uri] then
-                                all_files[uri] = true
-                                file_count = file_count + 1
-                            end
-                            local bufnr = vim.uri_to_bufnr(uri)
+              for _, edit in ipairs(edits) do
+                local start_line = edit.range.start.line + 1
+                local start_col = edit.range.start.character + 1
+                local line = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, start_line, false)[1]
 
-                            for _, edit in ipairs(edits) do
-                                local start_line = edit.range.start.line + 1
-                                local start_col = edit.range.start.character + 1
-                                local line = vim.api.nvim_buf_get_lines(bufnr, start_line - 1, start_line, false)[1]
-
-                                table.insert(qfitems, {
-                                    bufnr = bufnr,
-                                    lnum = start_line,
-                                    col = start_col,
-                                    text = line
-                                })
-                            end
-                        end
-                    end
-                end
-                if file_count > 0 then
-                    vim.fn.setqflist({}, "r", { items = qfitems, title = "Rename Locations" })
-                    print(string.format("Renamed %s => %s across %d files. Use `:cfdo undo` to undo", current_name, new_name,
-                        file_count))
-                end
-            end)
-        end)
+                table.insert(qfitems, {
+                  bufnr = bufnr,
+                  lnum = start_line,
+                  col = start_col,
+                  text = line
+                })
+              end
+            end
+          end
+        end
+        if file_count > 0 then
+          vim.fn.setqflist({}, "r", { items = qfitems, title = "Rename Locations" })
+          print(string.format("Renamed %s => %s across %d files. Use `:cfdo undo` to undo", current_name, new_name,
+            file_count))
+        end
+      end)
+    end)
 end
 map("grN", vim.lsp.buf.rename, "rename")
 map("<F14>", vim.lsp.buf.rename, "rename")
@@ -99,4 +99,42 @@ vim.keymap.set("x", "g/", function()
   -- Start search command with \%V
   vim.fn.feedkeys("/\\%V", "n")
 end, { silent = false })
+
+local wk = require("which-key")
+wk.add({
+  {  "<leader>q", group="QuickFix" }
+})
+vim.keymap.set("n", "<leader>qx", "<cmd> cexpr[]<cr>", { desc = "Clear QuickFix"})
+
+vim.keymap.set("n", "<leader>qa", function()
+  vim.fn.setqflist({}, "a", {
+    items = {
+      {
+        filename = vim.fn.expand("%:p"),
+        lnum = vim.fn.line("."),
+        col = vim.fn.col("."),
+        text = vim.fn.getline("."),
+      },
+    },
+  })
+end, { desc = "Add current line to quickfix" })
+
+vim.keymap.set("x", "<leader>qa", function()
+  local start = vim.fn.line("'<")
+  local finish = vim.fn.line("'>")
+  local file = vim.fn.expand("%:p")
+
+  local items = {}
+  for l = start, finish do
+    table.insert(items, {
+      filename = file,
+      lnum = l,
+      text = vim.fn.getline(l),
+    })
+  end
+
+  vim.fn.setqflist({}, "a", { items = items })
+end, { desc = "Add selection to quickfix" })
+
+vim.keymap.set("n", "<leader>qq", "<cmd>botright copen<cr>", { desc = "Open Quickfix List" })
 

@@ -1,3 +1,118 @@
+local function jump_to_item(item)
+  if item.pos then
+    pcall(vim.api.nvim_win_set_cursor, 0, {
+      item.pos[1],
+      math.max((item.pos[2] or 1) - 1, 0),
+    })
+  elseif item.line then
+    pcall(vim.api.nvim_win_set_cursor, 0, { item.line, 0 })
+  end
+end
+
+local function item_path(item)
+  return item.file or item.path or item.text
+end
+
+local function set_tab_scrollbind(enabled)
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+
+  if enabled then
+    vim.opt.scrollopt = { "ver", "jump" }
+  end
+
+  for _, win in ipairs(wins) do
+    vim.wo[win].scrollbind = enabled
+    vim.wo[win].cursorbind = false
+  end
+end
+
+local function open_in_new_tab(items, split_cmd, opts)
+  opts = opts or {}
+  if #items == 0 then
+    return
+  end
+
+  vim.cmd("tabnew")
+
+  for i, item in ipairs(items) do
+    local file = item_path(item)
+    if file and file ~= "" then
+      if i == 1 then
+        vim.cmd("edit " .. vim.fn.fnameescape(file))
+      else
+        vim.cmd(split_cmd .. " " .. vim.fn.fnameescape(file))
+      end
+      jump_to_item(item)
+    end
+  end
+
+  vim.cmd("wincmd =")
+  set_tab_scrollbind(opts.scrollbind == true)
+end
+
+local function smart_open_factory(single_action, multi_split_cmd, default_opts)
+  default_opts = default_opts or {}
+
+  return function(picker)
+    local items = picker:selected({ fallback = true })
+    if #items == 0 then
+      return
+    end
+
+    if #items == 1 then
+      return require("snacks.picker.actions")[single_action](picker)
+    end
+
+    picker:close()
+
+    local opts = vim.tbl_deep_extend("force", {}, default_opts, {
+      scrollbind = picker.opts.scrollbind,
+    })
+
+    vim.schedule(function()
+      open_in_new_tab(items, multi_split_cmd, opts)
+    end)
+  end
+end
+
+local function toggle_scrollbind(picker)
+  picker.opts.scrollbind = not picker.opts.scrollbind
+  picker:update_titles()
+end
+
+local grep_like_config = {
+  toggles = {
+    scrollbind = { icon = "SB", value = true },
+  },
+
+  actions = {
+    smart_split = smart_open_factory("edit_split", "split", {
+      scrollbind = true,
+    }),
+    smart_vsplit = smart_open_factory("edit_vsplit", "vsplit", {
+      scrollbind = true,
+    }),
+    toggle_scrollbind = toggle_scrollbind,
+  },
+
+  win = {
+    input = {
+      keys = {
+        ["<C-s>"] = { "smart_split", mode = { "i", "n" } },
+        ["<C-v>"] = { "smart_vsplit", mode = { "i", "n" } },
+        ["<C-b>"] = { "toggle_scrollbind", mode = { "i", "n" } },
+      },
+    },
+    list = {
+      keys = {
+        ["<C-s>"] = "smart_split",
+        ["<C-v>"] = "smart_vsplit",
+        ["<C-b>"] = "toggle_scrollbind",
+      },
+    },
+  },
+}
+
 return {
     { 
         "folke/snacks.nvim",
@@ -7,10 +122,15 @@ return {
             picker = {
                 matcher = {
                     frecency = true,
+                },
+                sources = {
+                    grep = grep_like_config,
+                    grep_word = grep_like_config,
                 }
             },
             explorer = {},
             input = {},
+
         },
         keys = {
             -- Top Pickers & Explorer
