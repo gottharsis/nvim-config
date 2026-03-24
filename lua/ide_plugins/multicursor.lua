@@ -21,9 +21,9 @@ return {
             set({"n", "x"}, "<localleader>S", function() mc.matchSkipCursor(-1) end, { desc = "MC: skip prevous match" })
 
             -- Add and remove cursors with control + left click.
-            set("n", "<c-leftmouse>", mc.handleMouse, { desc = "MC: Mouse click" })
-            set("n", "<c-leftdrag>", mc.handleMouseDrag, { desc = "MC: Mouse drag" })
-            set("n", "<c-leftrelease>", mc.handleMouseRelease, { desc = "MC: Mouse release" })
+            set("n", "<m-leftmouse>", mc.handleMouse, { desc = "MC: Mouse click" })
+            set("n", "<m-leftdrag>", mc.handleMouseDrag, { desc = "MC: Mouse drag" })
+            set("n", "<m-leftrelease>", mc.handleMouseRelease, { desc = "MC: Mouse release" })
 
             -- Disable and enable cursors.
             set({"n", "x"}, "<c-q>", mc.toggleCursor, { desc = "MC: toggle" })
