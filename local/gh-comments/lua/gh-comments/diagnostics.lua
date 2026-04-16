@@ -7,7 +7,7 @@ local augroup = vim.api.nvim_create_augroup("gh-comments", { clear = true })
 local config = {
   severity = vim.diagnostic.severity.HINT,
   sign = "󰆈",
-  prefix = { default = "󰆈", suggestion = "󱆿" },
+  prefix = { default = "󰆈 ", suggestion = "󱆿 " },
   priority = 10,
 }
 
@@ -26,7 +26,7 @@ end
 ---@param comment table
 ---@return vim.Diagnostic|nil
 function M.make_diagnostic(comment)
-  local lnum = comment.line or comment.original_line
+  local lnum = tonumber(comment.line) or tonumber(comment.original_line)
   if not lnum then return nil end
 
   local has_suggestion = comment.body:find("```suggestion") ~= nil

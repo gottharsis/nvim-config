@@ -6,4 +6,5 @@ else
     require('config.diagnostics')
     require('config.keymaps')
     require('config.keymaps-lsp')
+    require('config.statuscol')
 end
