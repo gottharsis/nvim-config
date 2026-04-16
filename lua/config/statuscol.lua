@@ -37,7 +37,7 @@ local function get_extmark_signs(bufnr, lnum)
       local details = mark[4]
       if details and details.sign_text then
         result[#result + 1] = {
-          text = vim.fn.strcharpart(vim.trim(details.sign_text), 0, 1),
+          text = vim.fn.strcharpart(vim.trim(details.sign_text), 0, 1, true),
           hl = details.sign_hl_group,
           priority = details.priority or 0,
           kind = sign_kind(name),
