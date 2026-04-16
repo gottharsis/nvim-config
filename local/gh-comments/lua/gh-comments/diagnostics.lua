@@ -6,7 +6,7 @@ local augroup = vim.api.nvim_create_augroup("gh-comments", { clear = true })
 
 local config = {
   severity = vim.diagnostic.severity.HINT,
-  sign = "󰆈",
+  sign = "!",
   prefix = { default = "󰆈 ", suggestion = "󱆿 " },
   priority = 10,
 }
