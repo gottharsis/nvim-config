@@ -1,5 +1,13 @@
 local M = {}
 
+local function getMaxWidth(text)
+  local maxWidth = 0
+  for line in text:gmatch("([^\n]*)\n?") do
+      maxWidth = math.max(maxWidth, #line) -- #line gives character count
+  end
+  return maxWidth
+end
+
 local ns = vim.api.nvim_create_namespace("gh-comments")
 local cached_comments = {} ---@type table<string, vim.Diagnostic[]>
 local augroup = vim.api.nvim_create_augroup("gh-comments", { clear = true })
@@ -35,21 +43,11 @@ function M.make_diagnostic(comment)
   return {
     lnum = lnum - 1,
     col = 0,
-    message = string.format("@%s: %s", comment.user, first_line),
+    message = comment.body,
     severity = config.severity,
     source = "gh-comments",
     user_data = { full_body = comment.body, user = comment.user, has_suggestion = has_suggestion },
   }
-end
-
---- Format a diagnostic for the float window, showing the full comment body.
----@param diagnostic vim.Diagnostic
----@return string
-local function format_diagnostic(diagnostic)
-  if diagnostic.user_data and diagnostic.user_data.full_body then
-    return string.format("@%s:\n%s", diagnostic.user_data.user, diagnostic.user_data.full_body)
-  end
-  return diagnostic.message
 end
 
 --- Get git repo root directory.
@@ -77,8 +75,23 @@ function M.apply(comments_by_path)
         end
         return has_suggestion and config.prefix.suggestion or config.prefix.default
       end,
+      format = function(diagnostic)
+        local first_line = diagnostic.message:match("^([^\n]+)") or diagnostic.message
+        if vim.startswith(first_line, "```") then 
+          first_line = "SUGGESTION"
+        end
+        return first_line
+      end
     },
-    float = { format = format_diagnostic },
+    float = {
+      format = function(diagnostic)
+        local user = diagnostic.user_data and diagnostic.user_data.user
+        if user then
+          return string.format("@%s\n%s", user, diagnostic.message)
+        end
+        return diagnostic.message
+      end
+    },
   }, ns)
   augroup = vim.api.nvim_create_augroup("gh-comments", { clear = true })
   for path, diags in pairs(cached_comments) do
