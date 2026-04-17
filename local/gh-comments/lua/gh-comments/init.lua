@@ -38,30 +38,34 @@ function M.load()
     vim.notify("gh-comments: `gh` CLI not found", vim.log.levels.ERROR)
     return
   end
+  if vim.fn.executable("jq") == 0 then
+    vim.notify("gh-comments: `jq` not found", vim.log.levels.ERROR)
+    return
+  end
 
-  local comments, pr_number, err = fetch.get_pr_comments()
-  if not comments then
+  local threads, pr_number, err = fetch.get_pr_comments()
+  if not threads then
     vim.notify("gh-comments: " .. (err or "unknown error"), vim.log.levels.ERROR)
     return
   end
 
-  -- Group comments by file path
+  -- Group thread diagnostics by file path
   local by_path = {} ---@type table<string, vim.Diagnostic[]>
-  for _, comment in ipairs(comments) do
-    local diag = diagnostics.make_diagnostic(comment)
+  for _, thread in ipairs(threads) do
+    local diag = diagnostics.make_diagnostic(thread)
     if diag then
-      if not by_path[comment.path] then
-        by_path[comment.path] = {}
+      if not by_path[thread.path] then
+        by_path[thread.path] = {}
       end
-      table.insert(by_path[comment.path], diag)
+      table.insert(by_path[thread.path], diag)
     end
   end
 
   diagnostics.apply(by_path)
 
-  local count = #comments
+  local count = #threads
   vim.notify(
-    string.format("gh-comments: loaded %d comment%s from PR #%d", count, count == 1 and "" or "s", pr_number),
+    string.format("gh-comments: loaded %d thread%s from PR #%d", count, count == 1 and "" or "s", pr_number),
     vim.log.levels.INFO
   )
 end

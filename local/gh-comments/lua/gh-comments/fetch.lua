@@ -2,6 +2,36 @@ local M = {}
 
 local host = nil ---@type string|nil
 
+local QUERY = [[
+  query($owner: String!, $repo: String!, $number: Int!) {
+    repository(owner: $owner, name: $repo) {
+      pullRequest(number: $number) {
+        reviewThreads(first: 100) {
+          nodes {
+            isResolved
+            isOutdated
+            path
+            line
+            comments(first: 100) {
+              nodes {
+                author { login }
+                body
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]]
+
+local JQ_FILTER = [[
+  [ .data.repository.pullRequest.reviewThreads.nodes[]
+    | select(.isResolved == false and .isOutdated == false)
+    | { path, line, comments: [ .comments.nodes[] | { author: .author.login, body } ] }
+  ]
+]]
+
 --- Set the GitHub Enterprise host for gh commands.
 ---@param h string|nil
 function M.set_host(h)
@@ -54,41 +84,47 @@ function M.get_pr_number()
   return num
 end
 
---- Fetch review comments for a PR. Uses :owner/:repo placeholders
---- so gh resolves them from the current git context.
+--- Fetch review threads for a PR via GraphQL, filtered to active (non-resolved, non-outdated).
 ---@param pr_number integer
----@return table[]|nil comments
+---@return table[]|nil threads
 ---@return string|nil err
 function M.get_comments(pr_number)
-  local endpoint = string.format("repos/:owner/:repo/pulls/%d/comments", pr_number)
   local output, err = run(gh({
-    "api", endpoint,
-    "--paginate",
-    "-q", '[.[] | {path, line, original_line, body, user: .user.login}]',
+    "api", "graphql",
+    "-F", "owner={owner}",
+    "-F", "repo={repo}",
+    "-F", "number=" .. pr_number,
+    "-f", "query=" .. QUERY,
   }))
   if not output then
     return nil, "Failed to fetch comments: " .. (err or "unknown error")
   end
-  local ok, data = pcall(vim.json.decode, output)
+
+  local transformed = vim.fn.system({ "jq", JQ_FILTER }, output)
+  if vim.v.shell_error ~= 0 then
+    return nil, "Failed to transform comments: " .. vim.trim(transformed)
+  end
+
+  local ok, data = pcall(vim.json.decode, vim.trim(transformed))
   if not ok then
     return nil, "Failed to parse comments JSON: " .. tostring(data)
   end
   return data
 end
 
---- Fetch all review comments for the current branch's PR.
----@return table[]|nil comments
+--- Fetch all active review threads for the current branch's PR.
+---@return table[]|nil threads
 ---@return integer|nil pr_number
 ---@return string|nil err
 function M.get_pr_comments()
   local pr_number, err = M.get_pr_number()
   if not pr_number then return nil, nil, err end
 
-  local comments
-  comments, err = M.get_comments(pr_number)
-  if not comments then return nil, nil, err end
+  local threads
+  threads, err = M.get_comments(pr_number)
+  if not threads then return nil, nil, err end
 
-  return comments, pr_number
+  return threads, pr_number
 end
 
 return M

@@ -30,23 +30,31 @@ function M.configure(opts)
   config.priority = opts.priority or config.priority
 end
 
---- Build a diagnostic entry from a raw comment table.
----@param comment table
+--- Build a diagnostic entry from a review thread (all comments combined).
+---@param thread table {line, path, comments: {author, body}[]}
 ---@return vim.Diagnostic|nil
-function M.make_diagnostic(comment)
-  local lnum = tonumber(comment.line) or tonumber(comment.original_line)
+function M.make_diagnostic(thread)
+  local lnum = tonumber(thread.line)
   if not lnum then return nil end
 
-  local has_suggestion = comment.body:find("```suggestion") ~= nil
-  local first_line = comment.body:match("^([^\n]+)") or comment.body
+  local has_suggestion = false
+  local parts = {}
+  for _, comment in ipairs(thread.comments or {}) do
+    if comment.body:find("```suggestion") then
+      has_suggestion = true
+    end
+    table.insert(parts, "@" .. (comment.author or "?") .. "\n" .. comment.body)
+  end
+  local body = table.concat(parts, "\n\n")
+  local first_author = thread.comments[1] and thread.comments[1].author
 
   return {
     lnum = lnum - 1,
     col = 0,
-    message = comment.body,
+    message = body,
     severity = config.severity,
     source = "gh-comments",
-    user_data = { full_body = comment.body, user = comment.user, has_suggestion = has_suggestion },
+    user_data = { user = first_author, has_suggestion = has_suggestion },
   }
 end
 
@@ -76,8 +84,10 @@ function M.apply(comments_by_path)
         return has_suggestion and config.prefix.suggestion or config.prefix.default
       end,
       format = function(diagnostic)
-        local first_line = diagnostic.message:match("^([^\n]+)") or diagnostic.message
-        if vim.startswith(first_line, "```") then 
+        -- message starts with "@author\n" — skip to first content line
+        local body = diagnostic.message:match("^@[^\n]*\n(.+)$") or diagnostic.message
+        local first_line = body:match("^([^\n]+)") or body
+        if vim.startswith(first_line, "```") then
           first_line = "SUGGESTION"
         end
         return first_line
@@ -85,10 +95,6 @@ function M.apply(comments_by_path)
     },
     float = {
       format = function(diagnostic)
-        local user = diagnostic.user_data and diagnostic.user_data.user
-        if user then
-          return string.format("@%s\n%s", user, diagnostic.message)
-        end
         return diagnostic.message
       end
     },
@@ -128,7 +134,7 @@ end
 
 --- Send all comment diagnostics to the quickfix list.
 function M.quickfix()
-  vim.diagnostic.setqflist({ namespace = ns })
+  vim.diagnostic.setqflist({ namespace = ns, title = "PR Review Comments" })
 end
 
 return M
