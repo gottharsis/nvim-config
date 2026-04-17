@@ -9,6 +9,7 @@ local function getMaxWidth(text)
 end
 
 local ns = vim.api.nvim_create_namespace("gh-comments")
+M.ns = ns
 local cached_comments = {} ---@type table<string, vim.Diagnostic[]>
 local augroup = vim.api.nvim_create_augroup("gh-comments", { clear = true })
 
@@ -54,7 +55,7 @@ function M.make_diagnostic(thread)
     message = body,
     severity = config.severity,
     source = "gh-comments",
-    user_data = { user = first_author, has_suggestion = has_suggestion },
+    user_data = { user = first_author, has_suggestion = has_suggestion, comments = thread.comments },
   }
 end
 
@@ -93,11 +94,6 @@ function M.apply(comments_by_path)
         return first_line
       end
     },
-    float = {
-      format = function(diagnostic)
-        return diagnostic.message
-      end
-    },
   }, ns)
   augroup = vim.api.nvim_create_augroup("gh-comments", { clear = true })
   for path, diags in pairs(cached_comments) do
@@ -130,6 +126,12 @@ end
 ---@return boolean
 function M.has_comments()
   return not vim.tbl_isempty(cached_comments)
+end
+
+--- Return cached diagnostics grouped by relative path.
+---@return table<string, vim.Diagnostic[]>
+function M.get_by_path()
+  return cached_comments
 end
 
 --- Send all comment diagnostics to the quickfix list.

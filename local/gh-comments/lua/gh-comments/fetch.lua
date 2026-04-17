@@ -68,7 +68,7 @@ end
 --- Get the PR number associated with the current branch.
 ---@return integer|nil pr_number
 ---@return string|nil err
-function M.get_pr_number()
+local function get_pr_number()
   local output, err = run(gh({
     "pr", "view",
     "--json", "number",
@@ -84,12 +84,16 @@ function M.get_pr_number()
   return num
 end
 
---- Fetch review threads for a PR via GraphQL, filtered to active (non-resolved, non-outdated).
----@param pr_number integer
+--- Fetch review threads via GraphQL + jq.
 ---@return table[]|nil threads
+---@return integer|nil pr_number
 ---@return string|nil err
-function M.get_comments(pr_number)
-  local output, err = run(gh({
+function M.fetch_pr_comments()
+  local pr_number, err = get_pr_number()
+  if not pr_number then return nil, nil, err end
+
+  local output
+  output, err = run(gh({
     "api", "graphql",
     "-F", "owner={owner}",
     "-F", "repo={repo}",
@@ -97,34 +101,20 @@ function M.get_comments(pr_number)
     "-f", "query=" .. QUERY,
   }))
   if not output then
-    return nil, "Failed to fetch comments: " .. (err or "unknown error")
+    return nil, nil, "Failed to fetch comments: " .. (err or "unknown error")
   end
 
   local transformed = vim.fn.system({ "jq", JQ_FILTER }, output)
   if vim.v.shell_error ~= 0 then
-    return nil, "Failed to transform comments: " .. vim.trim(transformed)
+    return nil, nil, "Failed to transform comments: " .. vim.trim(transformed)
   end
 
   local ok, data = pcall(vim.json.decode, vim.trim(transformed))
   if not ok then
-    return nil, "Failed to parse comments JSON: " .. tostring(data)
+    return nil, nil, "Failed to parse comments JSON: " .. tostring(data)
   end
-  return data
+  return data, pr_number
 end
 
---- Fetch all active review threads for the current branch's PR.
----@return table[]|nil threads
----@return integer|nil pr_number
----@return string|nil err
-function M.get_pr_comments()
-  local pr_number, err = M.get_pr_number()
-  if not pr_number then return nil, nil, err end
-
-  local threads
-  threads, err = M.get_comments(pr_number)
-  if not threads then return nil, nil, err end
-
-  return threads, pr_number
-end
 
 return M
