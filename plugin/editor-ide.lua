@@ -5,7 +5,7 @@ vim.pack.add{
     "https://github.com/windwp/nvim-autopairs",
     "https://github.com/rafamadriz/friendly-snippets",
     "https://github.com/L3MON4D3/LuaSnip",
-    { src = "https://github.com/saghen/blink.cmp", name="blink.cmp", version = "v1" }
+    { src = "https://github.com/saghen/blink.cmp", name="blink.cmp", version = "v1" },
 }
 
 
