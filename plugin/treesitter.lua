@@ -15,7 +15,7 @@ vim.api.nvim_create_autocmd("PackChanged", {
 })
 
 local treesitter_filetypes = {
-  'python', 'cpp', 'c', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'markdown', 'markdown_inline', 'yaml', 'lua'
+  'python', 'cpp', 'c', 'javascript', 'typescript', 'json', 'markdown', 'markdown_inline', 'yaml', 'lua', 'query'
 }
 
 require('nvim-treesitter').install(treesitter_filetypes)
