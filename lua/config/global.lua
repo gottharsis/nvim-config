@@ -1,3 +1,5 @@
+vim.keymap.set("i", "jk", "<Esc>", { desc = "Return to normal mode" })
+vim.g.mapleader = " "
 vim.opt.termguicolors = true
 
 vim.o.exrc = true
@@ -10,9 +12,12 @@ vim.o.signcolumn = 'auto'
 vim.o.number = true
 
 -- highlight on yank
-vim.cmd [[
-  autocmd TextYankPost * silent! lua vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
-]]
+
+vim.api.nvim_create_autocmd({"TextYankPost"}, {
+    callback = function(ev)
+        vim.highlight.on_yank {higroup=(vim.fn['hlexists']('HighlightedyankRegion') > 0 and 'HighlightedyankRegion' or 'IncSearch'), timeout=500}
+    end
+})
 
 vim.cmd [[
 filetype plugin indent on
@@ -59,6 +64,5 @@ if vim.env.WSL_DISTRO_NAME ~= nil then
     vim.g.netrw_browsex_viewer = "cmd.exe /C start"
 end
 
-vim.cmd [[ colorscheme gruvbox-material ]]
-
 vim.opt.foldlevel = 99
+
