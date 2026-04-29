@@ -2,6 +2,9 @@ if vim.g.vscode then do return end end
 vim.pack.add({ 
     { src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
     "https://github.com/sainnhe/gruvbox-material",
+    "https://github.com/folke/tokyonight.nvim",
+    "https://github.com/rebelot/kanagawa.nvim",
+    "https://github.com/Shatur/neovim-ayu",
 })
 
 vim.api.nvim_create_autocmd({ 'ColorSchemePre' }, {
