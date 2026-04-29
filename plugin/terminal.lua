@@ -3,7 +3,9 @@ if vim.g.vscode then do return end end
 local map = require("helpers").map
 
 vim.keymap.set("t", "jk", [[<C-\><C-n>]], { remap = false, desc="Return to normal mode" })
-map([[<C-\>]], function() Snacks.terminal() end, "Toggle terminal", { mode = {"t", "n", "x"}, remap = false })
+
+
+map( [[<C-\>]], function() Snacks.terminal.focus() end, "Toggle terminal", { mode = {"t", "n", "i"}, remap = false })
 
 
 local function send_range_to_snacks(opts)
@@ -41,5 +43,6 @@ end
 
 vim.api.nvim_create_user_command("SnacksSendLines", send_range_to_snacks, {
     range = true,
-    desc = "Send all lines to terminal"
+    desc = "Send all lines to terminal with specified tid",
+    nargs = "?"
 })
