@@ -11,7 +11,16 @@ require("no-neck-pain").setup{
     autocmds = {
         enableOnVimEnter = true,
     },
-    mappings = {
-        toggle = "<Leader>vn"
-    }
 }
+
+map("<leader>vn", "<cmd>NoNeckPain<cr>")
+
+require("vim._core.ui2").enable({})
+vim.o.cmdheight = 0
+vim.pack.add({ "https://github.com/rachartier/tiny-cmdline.nvim" })
+
+require("tiny-cmdline").setup({
+    on_reposition = require("tiny-cmdline").adapters.blink,
+    width = { value = "70%" },
+    native_types = {}, -- { "/", "?" },
+})
