@@ -1,4 +1,7 @@
 if vim.g.vscode then do return end end
+
+local map = require("helpers").map
+
 vim.diagnostic.config({
     underline = {
         severity = { min = vim.diagnostic.severity.WARN }
@@ -23,3 +26,6 @@ vim.diagnostic.config({
     },
 })
 
+
+map("<leader>xx", vim.diagnostic.setqflist, "Send diagnostics to qflist")
+map("<leader>xw", vim.diagnostic.setloclist, "Buffer diagnostics to loclist")

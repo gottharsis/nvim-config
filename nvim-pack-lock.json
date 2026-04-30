@@ -45,6 +45,10 @@
       "rev": "8ad3b4cdcc804b332c32db8f9743667e1bb82b99",
       "src": "https://github.com/rebelot/kanagawa.nvim"
     },
+    "lualine.nvim": {
+      "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
+      "src": "https://github.com/nvim-lualine/lualine.nvim"
+    },
     "neogit": {
       "rev": "d1cfc4986195239cac55700b675cea7a9578d430",
       "src": "https://github.com/NeogitOrg/neogit"
@@ -73,9 +77,17 @@
       "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
+    "nvim-web-devicons": {
+      "rev": "4fc505ac7bd7692824a142e96e5f529c133862f8",
+      "src": "https://github.com/nvim-tree/nvim-web-devicons"
+    },
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "quicker.nvim": {
+      "rev": "063cc44da1eef8681bbd653b29d3bc961780886a",
+      "src": "https://github.com/stevearc/quicker.nvim"
     },
     "smart-splits.nvim": {
       "rev": "78b9d3bd21fe479690ae5e08a1bf3602698466d8",
