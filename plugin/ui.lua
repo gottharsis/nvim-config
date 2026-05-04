@@ -46,4 +46,15 @@ require("lualine").setup {
     disabled_filetypes = { "no-neck-pain" }
 }
 
+vim.pack.add({ 'https://github.com/lewis6991/hover.nvim' })
 
+require("hover").config({
+    providers = {
+        'hover.providers.diagnostic',
+        'hover.providers.lsp',
+        'hover.providers.dap',
+    }
+})
+
+map("K", function() require('hover').open() end, "Open Hover window")
+map("gK", function() require('hover').enter() end, "Enter Hover window")
