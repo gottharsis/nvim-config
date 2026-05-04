@@ -43,7 +43,9 @@ require("lualine").setup {
             end,
         },
     },
-    disabled_filetypes = { "no-neck-pain" }
+    options = {
+        disabled_filetypes = { "no-neck-pain" }
+    }
 }
 
 vim.pack.add({ 'https://github.com/lewis6991/hover.nvim' })
